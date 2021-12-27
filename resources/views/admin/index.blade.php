@@ -4,20 +4,16 @@
 
 @section('content_header')
 
-<center><b>SELAMAT DATANG DITOKO KAMI</b></center>
+Dashboard
 
 @endsection
 
 @section('content')
-
-Welcome to this beautiful admin panel.
-
+Halaman Admin
 @endsection
 
 @section('css')
-
 @endsection
 
 @section('js')
-
 @endsection

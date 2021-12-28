@@ -48,15 +48,12 @@ Route::group(['prefix'=>'pengguna','middleware' => ['auth', 'role:pengguna']], f
     });
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']],
-    function (){
-        Route::get('admin', function () {
-            return view('admin.index');
-        });
-        Route::get('pengguna', function(){
-            return view('user.index');
-        });
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+    Route::get('barang', function(){
+        return view('pengelola.index');
+    })->middleware(['role:admin|pengguna']);
 });
+
 
 
 

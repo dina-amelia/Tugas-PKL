@@ -19,10 +19,6 @@ class CreateBarangsTable extends Migration
             $table->date('tanggal_masuk');
             $table->integer('stock');
             $table->string('harga');
-            $table->foreignId('id_laporan')
-            ->constraint('pembayarans')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
             $table->string('kategori');
             $table->string('deskripsi');
             $table->string('gambar')->nullable;

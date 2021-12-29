@@ -18,10 +18,10 @@ class CreateLaporansTable extends Migration
             $table->string('nama_barang_keluar');
             $table->date('tanggal_keluar');
             $table->integer('pemasukan');
-            $table->foreignId('id_pembayaran')
-            ->constraint('pembayarans')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->unsignedBigInteger('pembayaran_id');;
+            $table->foreign('pembayaran_id')
+            ->references('id')
+            ->on('pembayarans');
             $table->string('status');
             $table->timestamps();
 

@@ -18,13 +18,12 @@ class CreatePembayaransTable extends Migration
             $table->string('nama_barang');
             $table->integer('no_telephone');
             $table->integer('qty');
-            $table->foreignId('id_pesanan')
-            ->constraint('pesanans')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->unsignedBigInteger('pesanan_id');
+            $table->foreign('pesanan_id')
+            ->references('id')
+            ->on('pesanans');
             $table->date('tanggal_bayar');
             $table->integer('total');
-
             $table->timestamps();
 
         });

@@ -14,7 +14,8 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+        $barang = Barang::orderbyDesc("created_at")->paginate(10);
+        return view('admin.pengelola.index', compact('barang'));
     }
 
     /**
@@ -24,7 +25,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pengelola.create');
     }
 
     /**
@@ -35,7 +36,25 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama_barang'=>'required',
+            'stock'=>'required',
+            'tanggal_masuk'=>'required',
+            'harga'=>'required',
+            'kategori'=>'required',
+            'deskripsi'=>'required',
+            'gambar'=>'required',
+        ]);
+
+        $barang = new Pengelola;
+        $barang->nama_barang = $request->nama_barang;
+        $barang->stock = $request->stock;
+        $barang->tanggal_masuk = $request->tanggal_masuk;
+        $barang->harga = $request->harga;
+        $barang->kategori = $request->kategori;
+        $barang->deskripsi = $request->deskripsi;
+        $barang->gambar = $request->gambar;
+
     }
 
     /**
@@ -46,7 +65,7 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        //
+
     }
 
     /**

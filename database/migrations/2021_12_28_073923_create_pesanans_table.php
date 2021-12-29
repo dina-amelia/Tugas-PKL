@@ -19,19 +19,20 @@ class CreatePesanansTable extends Migration
             $table->string('alamat');
             $table->integer('no_telephone');
             $table->integer('jumlah');
-            $table->foreignId('id_barang')
-            ->constraint('barangs')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->unsignedBigInteger('barang_id');
+            $table->foreign('barang_id')
+            ->references('id')
+            ->on('barangs');
             $table->string('harga');
-            $table->foreignId('id_user')
-            ->constraint('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users');
             $table->date('tanggal_pesan');
-
             $table->timestamps();
-        });
+
+            });
+
     }
 
     /**

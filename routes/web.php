@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\LaporanController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +62,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
 Route::resource('admin/pengelola',BarangController::class);
 
+Route::resource('admin/pesanan',PesananController::class);
+
+Route::resource('admin/transaksi',PembayaranController::class);
+
+Route::resource('admin/laporan',LaporanController::class);
 
 
 

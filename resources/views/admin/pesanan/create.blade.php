@@ -28,30 +28,52 @@ Dashboard
                     Data Pesanan
                 </div>
                 <div class="card-body">
-                   <form action="{{route('pengelola.store')}}" method="post" enctype="multipart/form-data">
+                   <form action="{{route('pesanan.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="">Nama Barang</label>
-                            <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror">
-                             @error('nama_barang')
+                            <label for="">Pemesan</label>
+                            <input type="text" name="pemesan" class="form-control @error('title') is-invalid @enderror">
+                             @error('pemesan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="">Stock</label>
-                            <input type="text" name="stock" class="form-control @error('stock') is-invalid @enderror">
-                             @error('stock')
+                            <label for="">Alamat</label>
+                            <input type="text" name="alamat" class="form-control @error('title') is-invalid @enderror">
+                             @error('alamat')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="">Tanggal Masuk</label>
-                            <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk') is-invalid @enderror">
-                             @error('tanggal_masuk')
+                            <label for="">No Telephone</label>
+                            <input type="text" name="no_telephone" class="form-control @error('amount') is-invalid @enderror">
+                             @error('no_telephone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jumlah</label>
+                            <input type="text" name="jumlah" class="form-control @error('amount') is-invalid @enderror">
+                             @error('jumlah')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Id Barang</label>
+                            <select name="barang_id" class="form-control @error('barang_id') is-invalid @enderror" >
+                                @foreach($barang as $data)
+                                    <option value="{{$data->id}}">{{$data->id}}</option>
+                                @endforeach
+                            </select>
+                             @error('barang_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -59,7 +81,7 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Harga</label>
-                            <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror">
+                            <input type="text" name="harga" class="form-control @error('amount') is-invalid @enderror">
                              @error('harga')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -67,28 +89,9 @@ Dashboard
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="kategori">Kategori :</label> <br>
-                        <div class="form-check form-check-inline">
-                            <label for="kategori">
-                                <input type="radio" name="kategori" value="Anak-anak " id="kategori">Anak-anak
-                                <input type="radio" name="kategori" value="Remaja " id="kategori">Remaja
-                                <input type="radio" name="kategori" value="Dewasa " id="kategori">Dewasa
-                            </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Deskripsi</label>
-                            <input type="text" name="deskripsi" class="form-control @error('amount') is-invalid @enderror">
-                             @error('deskripsi')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Masukan Gambar</label>
-                            <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror">
-                             @error('gambar')
+                            <label for="">Tanggal Pesan</label>
+                            <input type="date" name="tanggal_pesan" class="form-control @error('amount') is-invalid @enderror">
+                             @error('tanggal_pesan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -105,4 +108,3 @@ Dashboard
     </div>
 </div>
 @endsection
-

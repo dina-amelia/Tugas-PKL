@@ -21,7 +21,8 @@ class CreateLaporansTable extends Migration
             $table->unsignedBigInteger('pembayaran_id');;
             $table->foreign('pembayaran_id')
             ->references('id')
-            ->on('pembayarans');
+            ->on('pembayarans')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->string('status');
             $table->timestamps();
 

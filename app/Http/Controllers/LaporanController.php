@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Pembayaran;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,8 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        //
+        $laporan = Laporan::with('pembayaran')->get();
+        return view('admin.laporan.index', compact('laporan'));
     }
 
     /**
@@ -24,7 +25,8 @@ class LaporanController extends Controller
      */
     public function create()
     {
-        //
+        $pembayaran = Pembayaran::all();
+        return view('admin.laporan.create', compact('pembayaran'));
     }
 
     /**
@@ -35,7 +37,23 @@ class LaporanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama_barang_keluar'=>'required',
+            'tanggal_keluar'=>'required',
+            'pemasukan'=>'required',
+            'pembayaran_id'=>'required',
+            'status'=>'required',
+        ]);
+
+        $laporan = new Laporan;
+        $laporan->nama_barang_keluar = $request->nama_barang_keluar;
+        $laporan->tanggal_keluar = $request->tanggal_keluar;
+        $laporan->pemasukan = $request->pemasukan;
+        $laporan->pembayaran_id = $request->pembayaran_id;
+        $laporan->status = $request->status;
+        $laporan->save();
+        return redirect()->route('laporan.index')->with('status', 'Laporan Berhasil ditambah');
+
     }
 
     /**
@@ -44,9 +62,10 @@ class LaporanController extends Controller
      * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function show(Laporan $laporan)
+    public function show($id)
     {
-        //
+        $laporan = Laporan::findOrFail($id);
+        return view('admin.laporan.show', compact('laporan'));
     }
 
     /**
@@ -55,9 +74,11 @@ class LaporanController extends Controller
      * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Laporan $laporan)
+    public function edit($id)
     {
-        //
+        $laporan = Laporan::findOrFail($id);
+        $pembayaran = Pembayaran::all();
+        return view('admin.laporan.edit', compact('laporan','pembayaran'));
     }
 
     /**
@@ -67,9 +88,25 @@ class LaporanController extends Controller
      * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Laporan $laporan)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama_barang_keluar'=>'required',
+            'tanggal_keluar'=>'required',
+            'pemasukan'=>'required',
+            'pembayaran_id'=>'required',
+            'status'=>'required',
+        ]);
+
+        $laporan = Laporan::findOrFail($id);
+        $laporan->nama_barang_keluar = $request->nama_barang_keluar;
+        $laporan->tanggal_keluar = $request->tanggal_keluar;
+        $laporan->pemasukan = $request->pemasukan;
+        $laporan->pembayaran_id = $request->pembayaran_id;
+        $laporan->status = $request->status;
+        $laporan->save();
+        return redirect()->route('laporan.index')->with('status', 'Laporan Berhasil diupdate');
+
     }
 
     /**
@@ -78,8 +115,10 @@ class LaporanController extends Controller
      * @param  \App\Models\Laporan  $laporan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Laporan $laporan)
+    public function destroy($id)
     {
-        //
+        $laporan = Laporan::findOrFail($id);
+        $laporan->delete();
+        return redirect()->route('laporan.index')->with('status', 'Laporan Berhasil dihapus');
     }
 }

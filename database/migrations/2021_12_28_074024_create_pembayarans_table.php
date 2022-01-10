@@ -21,7 +21,8 @@ class CreatePembayaransTable extends Migration
             $table->unsignedBigInteger('pesanan_id');
             $table->foreign('pesanan_id')
             ->references('id')
-            ->on('pesanans');
+            ->on('pesanans')->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->date('tanggal_bayar');
             $table->integer('total');
             $table->timestamps();

@@ -12,7 +12,7 @@ Dashboard
     <div class="container-fluid">
         <div class="mb-2 row">
             <div class="col-sm-12">
-                <h1 class="m-0">DATA PRODUK</h1>
+                <h1 class="m-0">TRANSAKSI PEMBAYARAN</h1>
             </div>
         </div>
     </div>
@@ -25,8 +25,8 @@ Dashboard
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    BERANDA PRODUK
-                    <a href="{{route('pengelola.create')}}" class="float-right btn btn-sm btn-outline-primary">Tambah Produk Baru</a>
+                    DATA TRANSAKSI PEMBAYARAN
+                    <a href="{{route('transaksi.create')}}" class="float-right btn btn-sm btn-outline-primary">Tambah Transaksi Baru</a>
                 </div>
                 <div class="card-body">
                     @if (session('status'))
@@ -39,33 +39,31 @@ Dashboard
                             <tr>
                                 <th>No</th>
                                 <th>Nama Barang</th>
-                                <th>Stock</th>
-                                <th>Tanggal Masuk</th>
-                                <th>Harga</th>
-                                <th>Kategori</th>
-                                <th>Deskripsi</th>
-                                <th>Gambar</th>
+                                <th>No Telephone</th>
+                                <th>Qty</th>
+                                <th>Id Pesanan</th>
+                                <th>Tanggal Bayar</th>
+                                <th>Total</th>
                                 <th>Aksi</th>
                             </tr>
                             @php $no=1; @endphp
-                            @foreach($barang as $data)
+                            @foreach($pembayaran as $data)
                                 <tr>
                                     <td>{{$no++}}</td>
                                     <td>{{$data->nama_barang}}</td>
-                                    <td>{{$data->stock}}</td>
-                                    <td>{{$data->tanggal_masuk}}</td>
-                                    <td>{{$data->harga}}</td>
-                                    <td>{{$data->kategori}}</td>
-                                    <td>{{$data->deskripsi}}</td>
-                                    <td><img src="{{$data->image()}}" alt="" style="width:200px; height:200px;" alt="gambar"></td>
+                                    <td>{{$data->no_telephone}}</td>
+                                    <td>{{$data->qty}}</td>
+                                    <td>{{$data->pesanan->id}}</td>
+                                    <td>{{$data->tanggal_bayar}}</td>
+                                    <td>{{$data->total}}</td>
 
                                     <td>
-                                        <form action="{{route('pengelola.destroy', $data->id)}}" method="post">
+                                        <a href="{{route('transaksi.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
+                                        <form action="{{route('transaksi.destroy', $data->id)}}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <a href="{{route('pengelola.edit', $data->id)}}" class="mb-2 btn btn-warning">Edit</a>
-                                            <a href="{{route('pengelola.show', $data->id)}}" class="btn btn-info">Show</a><br>
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button><br>
+                                            <a href="{{route('transaksi.show', $data->id)}}" class="btn btn-info">Show</a><br>
+                                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>

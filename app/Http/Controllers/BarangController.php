@@ -14,7 +14,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = Barang::orderbyDesc("created_at")->paginate(10);
+        $barang = Barang::all();
         return view('admin.pengelola.index', compact('barang'));
     }
 
@@ -43,17 +43,24 @@ class BarangController extends Controller
             'harga'=>'required',
             'kategori'=>'required',
             'deskripsi'=>'required',
-            'gambar'=>'required',
+            'gambar'=>'required|image|max:2048',
         ]);
 
-        $barang = new Pengelola;
+        $barang = new Barang;
         $barang->nama_barang = $request->nama_barang;
         $barang->stock = $request->stock;
         $barang->tanggal_masuk = $request->tanggal_masuk;
         $barang->harga = $request->harga;
         $barang->kategori = $request->kategori;
         $barang->deskripsi = $request->deskripsi;
-        $barang->gambar = $request->gambar;
+        if ($request->hasFile('gambar')){
+            $image = $request->file('gambar');
+            $name = rand(1000, 9999)."".$request->gambar->getClientOriginalName();
+            $image->move('image/barangs/', $name);
+            $barang->gambar = $name;
+        }
+        $barang->save();
+        return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil ditambahkan');
 
     }
 
@@ -63,9 +70,10 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function show(Barang $barang)
+    public function show($id)
     {
-
+        $barang = Barang::findOrFail($id);
+        return view('admin.pengelola.show', compact('barang'));
     }
 
     /**
@@ -74,9 +82,10 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function edit(Barang $barang)
+    public function edit($id)
     {
-        //
+        $barang = Barang::findOrFail($id);
+        return view('admin.pengelola.edit', compact('barang'));
     }
 
     /**
@@ -86,9 +95,33 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Barang $barang)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama_barang' => 'required',
+            'stock'=>'required',
+            'tanggal_masuk'=>'required',
+            'harga'=>'required',
+            'kategori'=>'required',
+            'deskripsi'=>'required',
+            'gambar'=>'required|image|max:2048',
+        ]);
+
+        $barang = Barang::findOrFail($id);
+        $barang->nama_barang = $request->nama_barang;
+        $barang->stock = $request->stock;
+        $barang->tanggal_masuk = $request->tanggal_masuk;
+        $barang->harga = $request->harga;
+        $barang->kategori = $request->kategori;
+        $barang->deskripsi = $request->deskripsi;
+        if ($request->hasFile('gambar')){
+            $image = $request->file('gambar');
+            $name = rand(1000, 9999)."".$request->gambar->getClientOriginalName();
+            $image->move('image/barangs/', $name);
+            $barang->gambar = $name;
+        }
+        $barang->save();
+        return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil diupdate');
     }
 
     /**
@@ -97,8 +130,11 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Barang $barang)
+    public function destroy($id)
     {
-        //
+        $barang = Barang::findOrFail($id);
+        $barang->deleteImage();
+        $barang->delete();
+        return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil dihapus');
     }
 }

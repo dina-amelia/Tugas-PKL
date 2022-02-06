@@ -26,22 +26,13 @@ Dashboard
             <div class="card">
                 <div class="card-header"> Data Produk</div>
                 <div class="card-body">
-                    <form action="{{route('pengelola.update', $barang->id)}}" method="post">
+                    <form action="{{route('pengelola.update', $barang->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="form-group">
                             <label for="">Nama Barang</label>
                             <input type="text" name="nama_barang" value="{{$barang->nama_barang}}" class="form-control @error('nama_barang') is-invalid @enderror">
                              @error('nama_barang')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Stock</label>
-                            <input type="text" name="stock" value="{{$barang->stock}}" class="form-control @error('stock') is-invalid @enderror">
-                             @error('stock')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -57,6 +48,16 @@ Dashboard
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="">Stock</label>
+                            <input type="text" name="stock" value="{{$barang->stock}}" class="form-control @error('stock') is-invalid @enderror">
+                             @error('stock')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="">Harga</label>
                             <input type="text" name="harga" value="{{$barang->harga}}" class="form-control @error('harga') is-invalid @enderror">
                              @error('harga')
@@ -69,9 +70,9 @@ Dashboard
                             <label for="kategori">Kategori :</label> <br>
                         <div class="form-check form-check-inline">
                             <label for="kategori">
-                                <input type="radio" name="kategori" value="{{$barang->kategori}}" id="kategori">Anak-anak
-                                <input type="radio" name="kategori" value="{{$barang->kategori}}" id="kategori">Remaja
-                                <input type="radio" name="kategori" value="{{$barang->kategori}}" id="kategori">Dewasa
+                                <input type="radio" name="kategori" value="Anak-Anak" id="kategori">Anak-anak
+                                <input type="radio" name="kategori" value="Remaja" id="kategori">Remaja
+                                <input type="radio" name="kategori" value="Dewasa" id="kategori">Dewasa
                             </label>
                             </div>
                         </div>

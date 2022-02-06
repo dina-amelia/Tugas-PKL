@@ -7,6 +7,8 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\LaporanController;
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,33 +33,33 @@ Auth::routes(
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::group(['prefix' => 'admin', 'middleware'=> ['auth','role:admin']], function(){
-    Route::get('/', function(){
-        return 'halaman admin';
-    });
+// Route::group(['prefix' => 'admin', 'middleware'=> ['auth','role:admin']], function(){
+//     Route::get('/home', function(){
+//         return 'halaman admin';
+//     });
 
-    Route::get('profile', function(){
-        return 'halaman profile admin';
-    });
-});
+//     Route::get('profile', function(){
+//         return 'halaman profile admin';
+//     });
+// });
 
 
-//hanya untuk role pengguna
-Route::group(['prefix'=>'pengguna','middleware' => ['auth', 'role:pengguna']], function(){
-    Route::get('/', function(){
-        return 'halaman pengguna';
-    });
+// //hanya untuk role pengguna
+// Route::group(['prefix'=>'pengguna','middleware' => ['auth', 'role:pengguna']], function(){
+//     Route::get('/user', function(){
+//         return 'halaman pengguna';
+//     });
 
-    Route::get('profile', function(){
-        return 'halaman profile pengguna';
-    });
-});
+//     Route::get('profile', function(){
+//         return 'halaman profile pengguna';
+//     });
+// });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
-    Route::get('barang', function(){
-        return view('pengelola.index');
-    })->middleware(['role:admin|pengguna']);
-});
+// Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+//     Route::get('barang', function(){
+//         return view('pengelola.index');
+//     })->middleware(['role:admin|pengguna']);
+// });
 
 
 Route::resource('admin/pengelola',BarangController::class);
@@ -67,6 +69,31 @@ Route::resource('admin/pesanan',PesananController::class);
 Route::resource('admin/transaksi',PembayaranController::class);
 
 Route::resource('admin/laporan',LaporanController::class);
+
+Route::get('/user', function() {
+    return view('frontend.home');
+});
+
+Route::get('/shop', function() {
+    return view('frontend.shop');
+});
+
+Route::get('/detail', function() {
+    return view('frontend.detail');
+});
+
+Route::get('/cart', function() {
+    return view('frontend.cart');
+});
+
+Route::get('/checkout', function() {
+    return view('frontend.checkout');
+});
+
+Route::get('/contact', function() {
+    return view('frontend.contact');
+});
+
 
 
 

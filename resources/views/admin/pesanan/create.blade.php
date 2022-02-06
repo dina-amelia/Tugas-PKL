@@ -70,7 +70,7 @@ Dashboard
                             <label for="">Id Barang</label>
                             <select name="barang_id" class="form-control @error('barang_id') is-invalid @enderror" >
                                 @foreach($barang as $data)
-                                    <option value="{{$data->id}}">{{$data->id}}</option>
+                                    <option value="{{$data->id}}">{{$data->nama_barang}}</option>
                                 @endforeach
                             </select>
                              @error('barang_id')
@@ -81,7 +81,11 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Harga</label>
-                            <input type="text" name="harga" class="form-control @error('amount') is-invalid @enderror">
+                            <select name="harga" class="form-control @error('harga') is-invalid @enderror" >
+                                @foreach($barang as $data)
+                                    <option value="{{$data->harga}}">{{$data->harga}}</option>
+                                @endforeach
+                            </select>
                              @error('harga')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

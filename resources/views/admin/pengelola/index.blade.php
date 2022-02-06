@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Data Barang')
 
 @section('content_header')
 
-Dashboard
+Data Barang
 
 @endsection
 @section('header')
@@ -57,7 +57,7 @@ Dashboard
                                     <td>{{$data->harga}}</td>
                                     <td>{{$data->kategori}}</td>
                                     <td>{{$data->deskripsi}}</td>
-                                    <td><img src="{{$data->image()}}" alt="" style="width:200px; height:200px;" alt="gambar"></td>
+                                    <td><img src="{{$data->image()}}" alt="" style="width:150px; height:150px;" alt="gambar"></td>
 
                                     <td>
                                         <form action="{{route('pengelola.destroy', $data->id)}}" method="post">

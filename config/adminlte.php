@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Penjualan Pakaian',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -247,6 +247,7 @@ return [
             'text' => 'Barang',
             'url'  => 'admin/pengelola',
             'icon' => 'fas fa-box-open',
+            'can' => 'AksesAdmin',
 
         ],
         [
@@ -266,6 +267,10 @@ return [
             'url'  => 'admin/laporan',
             'icon' => 'fas fa-folder-open',
 
+        ],
+        [
+            'url'  => 'user',
+            'can' => 'AksesPengguna',
         ],
     ],
 

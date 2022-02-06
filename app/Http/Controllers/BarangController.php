@@ -99,8 +99,8 @@ class BarangController extends Controller
     {
         $validated = $request->validate([
             'nama_barang' => 'required',
-            'stock'=>'required',
             'tanggal_masuk'=>'required',
+            'stock'=>'required',
             'harga'=>'required',
             'kategori'=>'required',
             'deskripsi'=>'required',
@@ -109,8 +109,8 @@ class BarangController extends Controller
 
         $barang = Barang::findOrFail($id);
         $barang->nama_barang = $request->nama_barang;
-        $barang->stock = $request->stock;
         $barang->tanggal_masuk = $request->tanggal_masuk;
+        $barang->stock = $request->stock;
         $barang->harga = $request->harga;
         $barang->kategori = $request->kategori;
         $barang->deskripsi = $request->deskripsi;

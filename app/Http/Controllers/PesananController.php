@@ -56,6 +56,10 @@ class PesananController extends Controller
         $pesanan->harga = $request->harga;
         $pesanan->tanggal_pesan = $request->tanggal_pesan;
         $pesanan->save();
+        $barang = Barang::findOrFail($request->barang_id = $request->barang_id);
+        $barang->stock -= $request->jumlah;
+        $barang->save();
+
         return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil ditambah');
     }
 

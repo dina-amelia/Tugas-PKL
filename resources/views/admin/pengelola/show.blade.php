@@ -29,20 +29,24 @@ Dashboard
                         @csrf
                         @method('put')
                         <div class="form-group">
+                            <label for="">Kode Barang</label>
+                            <input type="text" name="kode_barang" value="{{$barang->kode_barang}}" class="form-control @error('kode_barang') is-invalid @enderror" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="">Nama Barang</label>
-                            <input type="text" name="nama_barang" value="{{$barang->nama_barang}}" class="form-control @error('title') is-invalid @enderror" readonly>
+                            <input type="text" name="nama_barang" value="{{$barang->nama_barang}}" class="form-control @error('nama_barang') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Stock</label>
-                            <input type="text" name="stock" value="{{$barang->stock}}" class="form-control @error('title') is-invalid @enderror" readonly>
+                            <input type="text" name="stock" value="{{$barang->stock}}" class="form-control @error('stock') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Tanggal Masuk</label>
-                            <input type="date" name="tanggal_masuk" value="{{$barang->tanggal_masuk}}" class="form-control @error('amount') is-invalid @enderror" readonly>
+                            <input type="date" name="tanggal_masuk" value="{{$barang->tanggal_masuk}}" class="form-control @error('tanggal_masuk') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Harga</label>
-                            <input type="text" name="harga" value="{{$barang->harga}}" class="form-control @error('amount') is-invalid @enderror" readonly>
+                            <input type="text" name="harga" value="{{$barang->harga}}" class="form-control @error('harga') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
                             <label for="kategori">Kategori :</label> <br>
@@ -56,7 +60,7 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Deskripsi</label>
-                            <input type="text" name="deskripsi" value="{{$barang->deskripsi}}" class="form-control @error('amount') is-invalid @enderror" readonly>
+                            <input type="text" name="deskripsi" value="{{$barang->deskripsi}}" class="form-control @error('deskripsi') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Masukan Gambar</label>

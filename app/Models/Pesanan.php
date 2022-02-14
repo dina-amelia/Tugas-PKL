@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Alert;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,9 +23,20 @@ class Pesanan extends Model
 
     public function pembayaran()
     {
-        $this->hasMany('App\Models\Pembayaran', 'pesanan_id');
+        return $this->hasMany('App\Models\Pembayaran', 'pesanan_id');
 
 
+    }
+
+    public static function boot(){
+        parent::boot();
+        self::deleting(function($pesanan){
+            //mengecek apakah barang masih mempunyai pesanan
+            if($pesanan->pembayaran->count() > 0){
+                Alert::error('Failed', 'Data not deleted because barang have pesanan');
+                return false;
+            }
+        });
     }
 
 }

@@ -41,7 +41,7 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Alamat</label>
-                            <input type="text" name="alamat" class="form-control @error('title') is-invalid @enderror">
+                            <textarea type="file" name="alamat" class="form-control"></textarea>
                              @error('alamat')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

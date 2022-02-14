@@ -2,6 +2,11 @@
 
 @section('title', 'Data Barang')
 
+@section('js')
+<script src="{{asset('js/sweetalert2.js')}}"></script>
+<script src="{{asset('js/delete.js')}}"></script>
+@endsection
+
 @section('content_header')
 
 Data Barang
@@ -38,6 +43,7 @@ Data Barang
                         <table class="table">
                             <tr>
                                 <th>No</th>
+                                <th>Kode Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Stock</th>
                                 <th>Tanggal Masuk</th>
@@ -51,6 +57,7 @@ Data Barang
                             @foreach($barang as $data)
                                 <tr>
                                     <td>{{$no++}}</td>
+                                    <td>{{$data->kode_barang}}</td>
                                     <td>{{$data->nama_barang}}</td>
                                     <td>{{$data->stock}}</td>
                                     <td>{{$data->tanggal_masuk}}</td>
@@ -64,8 +71,8 @@ Data Barang
                                             @method('delete')
                                             @csrf
                                             <a href="{{route('pengelola.edit', $data->id)}}" class="mb-2 btn btn-warning">Edit</a>
-                                            <a href="{{route('pengelola.show', $data->id)}}" class="btn btn-info">Show</a><br>
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button><br>
+                                            <a href="{{route('pengelola.show', $data->id)}}" class="btn btn-info">Show</a>
+                                            <button type="submit" class="btn btn-danger delete-confirm">Delete</button><br>
                                         </form>
                                     </td>
                                 </tr>

@@ -30,6 +30,15 @@ Dashboard
                         @csrf
                         @method('put')
                         <div class="form-group">
+                            <label for="">Kode Barang</label>
+                            <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror">
+                             @error('kode_barang')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="">Nama Barang</label>
                             <input type="text" name="nama_barang" value="{{$barang->nama_barang}}" class="form-control @error('nama_barang') is-invalid @enderror">
                              @error('nama_barang')

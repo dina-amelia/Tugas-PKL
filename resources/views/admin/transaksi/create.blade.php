@@ -30,7 +30,7 @@ Dashboard
                 <div class="card-body">
                    <form action="{{route('transaksi.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="">Nama Barang</label>
                             <input type="text" name="nama_barang" class="form-control @error('nama_barang]') is-invalid @enderror">
                              @error('nama_barang')
@@ -56,7 +56,7 @@ Dashboard
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="">Id Pesanan</label>
                             <select name="pesanan_id" class="form-control @error('pesanan_id') is-invalid @enderror" >
@@ -70,7 +70,7 @@ Dashboard
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="">Tanggal Bayar</label>
                             <input type="date" name="tanggal_bayar" class="form-control @error('tanggal_bayar') is-invalid @enderror">
                              @error('tanggal_bayar')
@@ -87,7 +87,7 @@ Dashboard
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <button type="reset" class="btn btn-outline-warning">Reset</button>
                             <button type="submit" class="btn btn-outline-primary">Simpan</button>

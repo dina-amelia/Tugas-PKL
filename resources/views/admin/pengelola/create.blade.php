@@ -7,6 +7,7 @@
 Dashboard
 
 @endsection
+
 @section('header')
 <div class="content-header">
     <div class="container-fluid">
@@ -30,6 +31,15 @@ Dashboard
                 <div class="card-body">
                    <form action="{{route('pengelola.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        <div class="form-group">
+                            <label for="">Kode Barang</label>
+                            <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror">
+                             @error('kode_barang')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <div class="form-group">
                             <label for="">Nama Barang</label>
                             <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror">
@@ -78,7 +88,7 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Deskripsi</label>
-                            <input type="text" name="deskripsi" class="form-control @error('amount') is-invalid @enderror">
+                            <textarea type="file" name="deskripsi" class="form-control"></textarea>
                              @error('deskripsi')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

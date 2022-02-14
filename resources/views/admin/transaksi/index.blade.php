@@ -49,19 +49,19 @@ Data Transaksi
                             @php $no=1; @endphp
                             @foreach($pembayaran as $data)
                                 <tr>
-                                    <td>{{$no++}}</td>
-                                    <td>{{$data->nama_barang}}</td>
-                                    <td>{{$data->no_telephone}}</td>
-                                    <td>{{$data->qty}}</td>
-                                    <td>{{$data->pesanan->id}}</td>
-                                    <td>{{$data->tanggal_bayar}}</td>
-                                    <td>{{$data->total}}</td>
+                                        <td>{{$no++}}</td>
+                                        <td>{{$data->nama_barang}}</td>
+                                        <td>{{$data->no_telephone}}</td>
+                                        <td>{{$data->qty}}</td>
+                                        <td>{{$data->pesanan->id}}</td>
+                                        <td>{{$data->tanggal_bayar}}</td>
+                                        <td>{{$data->total}}</td>
 
                                     <td>
-                                        <a href="{{route('transaksi.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
                                         <form action="{{route('transaksi.destroy', $data->id)}}" method="post">
                                             @method('delete')
                                             @csrf
+                                            <a href="{{route('transaksi.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
                                             <a href="{{route('transaksi.show', $data->id)}}" class="btn btn-info">Show</a><br>
                                             <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
                                         </form>

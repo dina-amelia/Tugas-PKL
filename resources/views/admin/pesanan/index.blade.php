@@ -2,6 +2,11 @@
 
 @section('title', 'Data Pesanan')
 
+@section('js')
+<script src="{{asset('js/sweetalert2.js')}}"></script>
+<script src="{{asset('js/delete.js')}}"></script>
+@endsection
+
 @section('content_header')
 
 Data Pesanan
@@ -60,12 +65,12 @@ Data Pesanan
                                     <td>{{$data->tanggal_pesan}}</td>
 
                                     <td>
-                                        <a href="{{route('pesanan.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
                                         <form action="{{route('pesanan.destroy', $data->id)}}" method="post">
                                             @method('delete')
                                             @csrf
+                                            <a href="{{route('pesanan.edit', $data->id)}}" class="mb-2 btn btn-warning">Edit</a>
                                             <a href="{{route('pesanan.show', $data->id)}}" class="btn btn-info">Show</a><br>
-                                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
+                                            <button type="submit" class="btn btn-danger delete-confirm">Delete</button><br>
                                         </form>
                                     </td>
                                 </tr>

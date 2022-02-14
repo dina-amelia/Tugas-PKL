@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Alert;
 use App\Models\Barang;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
@@ -128,8 +129,13 @@ class PesananController extends Controller
      */
     public function destroy($id)
     {
-        $pesanan =Pesanan::findOrFail($id);
-        $pesanan->delete();
-        return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil dihapus');
+        // $pesanan =Pesanan::findOrFail($id);
+        // $pesanan->delete();
+        // return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil dihapus');
+        if(!Pesanan::destroy($id)){
+            return redirect()->back();
+        }
+        Alert::success('Good Job', 'Data deleted successfully');
+        return redirect()->route('pesanan.index');
     }
 }

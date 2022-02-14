@@ -56,10 +56,10 @@ Data Laporan
                                     <td>{{$data->status}}</td>
 
                                     <td>
-                                        <a href="{{route('laporan.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
                                         <form action="{{route('laporan.destroy', $data->id)}}" method="post">
                                             @method('delete')
                                             @csrf
+                                            <a href="{{route('laporan.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
                                             <a href="{{route('laporan.show', $data->id)}}" class="btn btn-info">Show</a><br>
                                             <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
                                         </form>

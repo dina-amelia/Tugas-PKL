@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Alert;
+use Validator;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 
@@ -36,17 +37,52 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_barang'=>'required',
-            'stock'=>'required',
+        // $validated = $request->validate([
+        //     'nama_barang'=>'required',
+        //     'stock'=>'required',
+        //     'tanggal_masuk'=>'required',
+        //     'harga'=>'required',
+        //     'kategori'=>'required',
+        //     'deskripsi'=>'required',
+        //     'gambar'=>'required|image|max:2048',
+        // ]);
+
+        $rules = [
+            'kode_barang' => 'required',
+            'nama_barang' => 'required|max:255|unique:barangs',
+            'stock' => 'required|numeric|max:2048',
             'tanggal_masuk'=>'required',
-            'harga'=>'required',
+            'harga'=>'required|numeric',
             'kategori'=>'required',
-            'deskripsi'=>'required',
+            'deskripsi'=>'required|max:255',
             'gambar'=>'required|image|max:2048',
-        ]);
+        ];
+
+        $message = [
+            'kode_barang.required' => 'kode barang harus diisi',
+            'nama_barang.required' => 'nama barang harus di isi',
+            'nama_barang.unique' => 'nama barang sudah digunakan',
+            'nama_barang.max' => 'nama barang maksimal 255 karakter',
+            'stock.numeric' => 'hanya boleh di isi oleh angka',
+            'stock.required' => 'stock harus di isi',
+            'tanggal_masuk.required' => 'tanggal masuk harus di isi',
+            'harga.required' => 'harga harus di isi',
+            'harga.numeric' => 'hanya boleh di isi oleh angka',
+            'kategori.required' => 'kategori harus di isi',
+            'deskripsi.required' => 'deskripsi harus di isi',
+            'deskripsi.max' => 'deskripsi maksimal 255 karakter',
+            'gambar.required' => 'gambar harus di isi',
+            'gambar.image' => 'file harus bersifat foto',
+        ];
+
+        $validation = Validator::make($request->all(),$rules,$message);
+        if($validation->fails()){
+            Alert::error('Oops','Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
+            return back()->withErrors($validation)->withInput();
+        }
 
         $barang = new Barang;
+        $barang->kode_barang = $request->kode_barang;
         $barang->nama_barang = $request->nama_barang;
         $barang->stock = $request->stock;
         $barang->tanggal_masuk = $request->tanggal_masuk;
@@ -60,7 +96,7 @@ class BarangController extends Controller
             $barang->gambar = $name;
         }
         $barang->save();
-        return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil ditambahkan');
+        return redirect()->route('pengelola.index');
 
     }
 
@@ -97,17 +133,52 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'nama_barang' => 'required',
+        // $validated = $request->validate([
+        //     'nama_barang' => 'required',
+        //     'tanggal_masuk'=>'required',
+        //     'stock'=>'required',
+        //     'harga'=>'required',
+        //     'kategori'=>'required',
+        //     'deskripsi'=>'required',
+        //     'gambar'=>'required|image|max:2048',
+        // ]);
+
+        $rules = [
+            'kode_barang' => 'required',
+            'nama_barang' => 'required|max:255|unique:barangs',
+            'stock' => 'required|numeric|max:2048',
             'tanggal_masuk'=>'required',
-            'stock'=>'required',
-            'harga'=>'required',
+            'harga'=>'required|numeric',
             'kategori'=>'required',
-            'deskripsi'=>'required',
+            'deskripsi'=>'required|max:255',
             'gambar'=>'required|image|max:2048',
-        ]);
+        ];
+
+        $message = [
+            'kode_barang.required' => 'kode barang harus diisi',
+            'nama_barang.required' => 'nama barang harus di isi',
+            'nama_barang.unique' => 'nama barang sudah digunakan',
+            'nama_barang.max' => 'nama barang maksimal 255 karakter',
+            'stock.numeric' => 'hanya boleh di isi oleh angka',
+            'stock.required' => 'stock harus di isi',
+            'tanggal_masuk.required' => 'tanggal masuk harus di isi',
+            'harga.required' => 'harga harus di isi',
+            'harga.numeric' => 'hanya boleh di isi oleh angka',
+            'kategori.required' => 'kategori harus di isi',
+            'deskripsi.required' => 'deskripsi harus di isi',
+            'deskripsi.max' => 'deskripsi maksimal 255 karakter',
+            'gambar.required' => 'gambar harus di isi',
+            'gambar.image' => 'file harus bersifat foto',
+        ];
+
+        $validation = Validator::make($request->all(),$rules,$message);
+        if($validation->fails()){
+            Alert::error('Oops','Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
+            return back()->withErrors($validation)->withInput();
+        }
 
         $barang = Barang::findOrFail($id);
+        $barang->kode_barang = $request->kode_barang;
         $barang->nama_barang = $request->nama_barang;
         $barang->tanggal_masuk = $request->tanggal_masuk;
         $barang->stock = $request->stock;
@@ -132,9 +203,15 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        $barang = Barang::findOrFail($id);
-        $barang->deleteImage();
-        $barang->delete();
-        return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil dihapus');
+        // $barang = Barang::findOrFail($id);
+        // $barang->deleteImage();
+        // $barang->delete();
+        // return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil dihapus');
+
+        if(!Barang::destroy($id)){
+            return redirect()->back();
+        }
+        Alert::success('Good Job', 'Data deleted successfully');
+        return redirect()->route('pengelola.index');
     }
 }

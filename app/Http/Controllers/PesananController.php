@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Alert;
 use App\Models\Barang;
 use App\Models\Pesanan;
@@ -38,14 +39,14 @@ class PesananController extends Controller
      */
     public function store(Request $request)
     {
+        $barang = Barang::find($request->barang_id);
         $validated = $request->validate([
-            'pemesan'=>'required',
-            'alamat'=>'required',
-            'no_telephone'=>'required',
-            'jumlah'=>'required',
-            'barang_id'=>'required',
-            'harga'=>'required',
-            'tanggal_pesan'=>'required',
+            'pemesan' => 'required',
+            'alamat' => 'required',
+            'no_telephone' => 'required',
+            'jumlah' => 'required|numeric|min:1|max:' . $barang->stock,
+            'barang_id' => 'required',
+            'tanggal_pesan' => 'required',
         ]);
 
         $pesanan = new Pesanan;
@@ -54,14 +55,13 @@ class PesananController extends Controller
         $pesanan->no_telephone = $request->no_telephone;
         $pesanan->jumlah = $request->jumlah;
         $pesanan->barang_id = $request->barang_id;
-        $pesanan->harga = $request->harga;
         $pesanan->tanggal_pesan = $request->tanggal_pesan;
         $pesanan->save();
         $barang = Barang::findOrFail($request->barang_id = $request->barang_id);
         $barang->stock -= $request->jumlah;
         $barang->save();
-
-        return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil ditambah');
+        Alert::success('Good Job', 'Data successfully');
+        return redirect()->route('pesanan.index');
     }
 
     /**
@@ -87,7 +87,7 @@ class PesananController extends Controller
 
         $pesanan = Pesanan::findOrFail($id);
         $barang = Barang::all();
-        return view('admin.pesanan.edit', compact('pesanan','barang'));
+        return view('admin.pesanan.edit', compact('pesanan', 'barang'));
     }
 
     /**
@@ -101,12 +101,11 @@ class PesananController extends Controller
     {
         $validated = $request->validate([
             'pemesan' => 'required',
-            'alamat'=>'required',
-            'no_telephone'=>'required',
-            'jumlah'=>'required',
-            'barang_id'=>'required',
-            'harga'=>'required',
-            'tanggal_pesan'=>'required',
+            'alamat' => 'required',
+            'no_telephone' => 'required',
+            'jumlah' => 'required',
+            'barang_id' => 'required',
+            'tanggal_pesan' => 'required',
         ]);
 
         $pesanan = Pesanan::findOrFail($id);
@@ -129,10 +128,7 @@ class PesananController extends Controller
      */
     public function destroy($id)
     {
-        // $pesanan =Pesanan::findOrFail($id);
-        // $pesanan->delete();
-        // return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil dihapus');
-        if(!Pesanan::destroy($id)){
+        if (!Pesanan::destroy($id)) {
             return redirect()->back();
         }
         Alert::success('Good Job', 'Data deleted successfully');

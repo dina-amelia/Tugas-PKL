@@ -21,14 +21,13 @@ class CreatePesanansTable extends Migration
             $table->integer('jumlah');
             $table->unsignedBigInteger('barang_id');
             $table->foreign('barang_id')
-            ->references('id')
-            ->on('barangs')->onUpdate('cascade')
-            ->onDelete('cascade');
-            $table->string('harga');
+                ->references('id')
+                ->on('barangs')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->date('tanggal_pesan');
             $table->timestamps();
 
-            });
+        });
 
     }
 

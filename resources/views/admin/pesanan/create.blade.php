@@ -59,7 +59,7 @@ Dashboard
                         </div>
                         <div class="form-group">
                             <label for="">Jumlah</label>
-                            <input type="text" name="jumlah" class="form-control @error('amount') is-invalid @enderror">
+                            <input type="text" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
                              @error('jumlah')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -74,19 +74,6 @@ Dashboard
                                 @endforeach
                             </select>
                              @error('barang_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Harga</label>
-                            <select name="harga" class="form-control @error('harga') is-invalid @enderror" >
-                                @foreach($barang as $data)
-                                    <option value="{{$data->harga}}">{{$data->harga}}</option>
-                                @endforeach
-                            </select>
-                             @error('harga')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

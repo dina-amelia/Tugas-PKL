@@ -96,6 +96,7 @@ class BarangController extends Controller
             $barang->gambar = $name;
         }
         $barang->save();
+        Alert::success('Good Job', 'Data successfully');
         return redirect()->route('pengelola.index');
 
     }
@@ -133,16 +134,6 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $validated = $request->validate([
-        //     'nama_barang' => 'required',
-        //     'tanggal_masuk'=>'required',
-        //     'stock'=>'required',
-        //     'harga'=>'required',
-        //     'kategori'=>'required',
-        //     'deskripsi'=>'required',
-        //     'gambar'=>'required|image|max:2048',
-        // ]);
-
         $rules = [
             'kode_barang' => 'required',
             'nama_barang' => 'required|max:255|unique:barangs',
@@ -203,11 +194,6 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        // $barang = Barang::findOrFail($id);
-        // $barang->deleteImage();
-        // $barang->delete();
-        // return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil dihapus');
-
         if(!Barang::destroy($id)){
             return redirect()->back();
         }

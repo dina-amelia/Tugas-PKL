@@ -2,11 +2,6 @@
 
 @section('title', 'Data Pesanan')
 
-@section('js')
-<script src="{{asset('js/sweetalert2.js')}}"></script>
-<script src="{{asset('js/delete.js')}}"></script>
-@endsection
-
 @section('content_header')
 
 Data Pesanan
@@ -31,29 +26,27 @@ Data Pesanan
             <div class="card">
                 <div class="card-header">
                     DATA PESANAN
-                    <a href="{{route('pesanan.create')}}" class="float-right btn btn-sm btn-outline-primary">Tambah Pesanan Baru</a>
+                    <a href="{{route('pesanan.create')}}" class="float-right btn btn-sm btn-outline-primary"><i class="fas fa-fw fa-cart-plus"></i> Tambah Pesanan Baru</a></a>
                 </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div class="table-responsive table-striped">
-                        <table class="table">
-                            <tr>
-                                <th>No</th>
-                                <th>Pemesanan</th>
-                                <th>Alamat</th>
-                                <th>No Telephone</th>
-                                <th>Jumlah</th>
-                                <th>Nama Barang</th>
-                                <th>Harga</th>
-                                <th>Tanggal Pesan</th>
-                                <th>Aksi</th>
-                            </tr>
+                    <div class="table-responsive">
+                        <table class="table" id="pesanan">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Pemesanan</th>
+                                    <th>Alamat</th>
+                                    <th>No Telephone</th>
+                                    <th>Jumlah</th>
+                                    <th>Nama Barang</th>
+                                    <th>Harga</th>
+                                    <th>Tanggal Pesan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
                             @php $no=1; @endphp
                             @foreach($pesanan as $data)
+                            <tbody>
                                 <tr>
                                     <td>{{$no++}}</td>
                                     <td>{{$data->pemesan}}</td>
@@ -61,7 +54,7 @@ Data Pesanan
                                     <td>{{$data->no_telephone}}</td>
                                     <td>{{$data->jumlah}}</td>
                                     <td>{{$data->barang->nama_barang}}</td>
-                                    <td>{{$data->harga}}</td>
+                                    <td>{{$data->barang->harga}}</td>
                                     <td>{{$data->tanggal_pesan}}</td>
 
                                     <td>
@@ -74,6 +67,7 @@ Data Pesanan
                                         </form>
                                     </td>
                                 </tr>
+                            </tbody>
                             @endforeach
                         </table>
                     </div>
@@ -82,4 +76,19 @@ Data Pesanan
         </div>
     </div>
 </div>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{asset('DataTables/datatables.min.css')}}">
+@endsection
+
+@section('js')
+    <script src="{{asset('DataTables/datatables.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#pesanan').DataTable();
+        });
+    </script>
+    <script src="{{asset('js/sweetalert2.js')}}"></script>
+    <script src="{{asset('js/delete.js')}}"></script>
 @endsection

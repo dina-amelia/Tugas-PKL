@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Alert;
 use App\Models\Pesanan;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
@@ -54,7 +55,8 @@ class PembayaranController extends Controller
         $pembayaran->tanggal_bayar = $request->tanggal_bayar;
         $pembayaran->total = $request->total;
         $pembayaran->save();
-        return redirect()->route('transaksi.index')->with('status', 'Transaksi Pembayaran Berhasil ditambah');
+        Alert::success('Good Job', 'Data successfully');
+        return redirect()->route('transaksi.index');
     }
 
     /**
@@ -108,7 +110,8 @@ class PembayaranController extends Controller
         $pembayaran->tanggal_bayar = $request->tanggal_bayar;
         $pembayaran->total = $request->total;
         $pembayaran->save();
-        return redirect()->route('transaksi.index')->with('status', 'Transaksi Pembayaran Berhasil diupdate');
+        Alert::success('Good Job', 'Data successfully');
+        return redirect()->route('transaksi.index');
     }
 
     /**
@@ -119,8 +122,10 @@ class PembayaranController extends Controller
      */
     public function destroy($id)
     {
-        $pembayaran = Pembayaran::findOrFail($id);
-        $pembayaran->delete();
-        return redirect()->route('transaksi.index')->with('status', 'Transaksi Pembayaran Berhasil dihapus');
+        if(!Pembayaran::destroy($id)){
+            return redirect()->back();
+        }
+        Alert::success('Good Job', 'Data deleted successfully');
+        return redirect()->route('transaksi.index');
     }
 }

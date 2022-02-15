@@ -26,28 +26,26 @@ Data Transaksi
             <div class="card">
                 <div class="card-header">
                     DATA TRANSAKSI PEMBAYARAN
-                    <a href="{{route('transaksi.create')}}" class="float-right btn btn-sm btn-outline-primary">Tambah Transaksi Baru</a>
+                    <a href="{{route('transaksi.create')}}" class="float-right btn btn-sm btn-outline-primary"><i class="fas fa-fw fa-cart-plus"></i> Tambah Transaksi Baru</a>
                 </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div class="table-responsive table-striped">
-                        <table class="table">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Barang</th>
-                                <th>No Telephone</th>
-                                <th>Qty</th>
-                                <th>Id Pesanan</th>
-                                <th>Tanggal Bayar</th>
-                                <th>Total</th>
-                                <th>Aksi</th>
-                            </tr>
+                    <div class="table-responsive ">
+                        <table class="table" id="transaksi">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Barang</th>
+                                    <th>No Telephone</th>
+                                    <th>Qty</th>
+                                    <th>Id Pesanan</th>
+                                    <th>Tanggal Bayar</th>
+                                    <th>Total</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
                             @php $no=1; @endphp
                             @foreach($pembayaran as $data)
+                            <tbody>
                                 <tr>
                                         <td>{{$no++}}</td>
                                         <td>{{$data->nama_barang}}</td>
@@ -67,6 +65,7 @@ Data Transaksi
                                         </form>
                                     </td>
                                 </tr>
+                            </tbody>
                             @endforeach
                         </table>
                     </div>
@@ -75,4 +74,19 @@ Data Transaksi
         </div>
     </div>
 </div>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{asset('DataTables/datatables.min.css')}}">
+@endsection
+
+@section('js')
+    <script src="{{asset('DataTables/datatables.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#transaksi').DataTable();
+        });
+    </script>
+    <script src="{{asset('js/sweetalert2.js')}}"></script>
+    <script src="{{asset('js/delete.js')}}"></script>
 @endsection

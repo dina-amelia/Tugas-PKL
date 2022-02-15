@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Data Laporan')
 
 @section('content_header')
 
-Dashboard
+Data Laporan
 
 @endsection
 @section('header')
 <div class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="mb-2 row">
             <div class="col-sm-12">
-                <h1 class="m-0">Tambah Laporan Baru</h1>
+                <h1 class="m-0">LAPORAN </h1>
             </div>
         </div>
     </div>
@@ -25,65 +25,49 @@ Dashboard
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Data Laporan
+                    DATA LAPORAN
+                    <a href="{{route('laporan.create')}}" class="float-right btn btn-sm btn-outline-primary">Tambah Laporan Baru</a>
                 </div>
                 <div class="card-body">
-                   <form action="{{route('laporan.store')}}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="">Nama Barang Keluar</label>
-                            <input type="text" name="nama_barang_keluar" class="form-control @error('nama_barang_keluar') is-invalid @enderror">
-                             @error('nama_barang_keluar')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
                         </div>
-                        <div class="form-group">
-                            <label for="">Tanggal Keluar</label>
-                            <input type="date" name="tanggal_keluar" class="form-control @error('tanggal_keluar') is-invalid @enderror">
-                             @error('tanggal_keluar')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Pemasukan</label>
-                            <input type="text" name="pemasukan" class="form-control @error('pemasukan') is-invalid @enderror">
-                             @error('pemasukan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Id Pembayaran</label>
-                            <select name="pembayaran_id" class="form-control @error('pembayaran_id') is-invalid @enderror" >
-                                @foreach($pembayaran as $data)
-                                    <option value="{{$data->id}}">{{$data->id}}</option>
-                                @endforeach
-                            </select>
-                             @error('pembayaran_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Status</label>
-                            <input type="text" name="status" class="form-control @error('status') is-invalid @enderror">
-                             @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <button type="reset" class="btn btn-outline-warning">Reset</button>
-                            <button type="submit" class="btn btn-outline-primary">Simpan</button>
-                        </div>
-                   </form>
+                    @endif
+                    <div class="table-responsive table-striped">
+                        <table class="table">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Barang Keluar</th>
+                                <th>Tanggal Keluar</th>
+                                <th>Pemasukan</th>
+                                <th>Id Pembayaran</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                            @php $no=1; @endphp
+                            @foreach($pembayaran as $data)
+                                <tr>
+                                    <td>{{$no++}}</td>
+                                    <td>{{$data->nama_barang_keluar}}</td>
+                                    <td>{{$data->tanggal_keluar}}</td>
+                                    <td>{{$data->pemasukan}}</td>
+                                    <td>{{$data->pembayaran->id}}</td>
+                                    <td>{{$data->status}}</td>
+
+                                    <td>
+                                        <form action="{{route('laporan.destroy', $data->id)}}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <a href="{{route('laporan.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
+                                            <a href="{{route('laporan.show', $data->id)}}" class="btn btn-info">Show</a><br>
+                                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

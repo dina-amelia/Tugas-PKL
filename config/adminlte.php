@@ -266,7 +266,21 @@ return [
             'text' => 'Laporan',
             'url'  => 'admin/laporan',
             'icon' => 'fas fa-folder-open',
-
+            'submenu' => [
+                [
+                    'text' => 'Laporan Barang',
+                    'url'  => 'admin/laporan',
+                    'icon' => 'fas fa-box-open',
+                ],
+                [
+                    'text' => 'Laporan Pemesanan',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Laporan Transaksi',
+                    'url'  => '#',
+                ],
+            ],
         ],
         [
             'url'  => 'user',

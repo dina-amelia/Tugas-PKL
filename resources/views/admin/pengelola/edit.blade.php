@@ -31,7 +31,7 @@ Dashboard
                         @method('put')
                         <div class="form-group">
                             <label for="">Kode Barang</label>
-                            <input type="text" name="kode_barang" class="form-control @error('kode_barang') is-invalid @enderror">
+                            <input type="text" name="kode_barang" value="{{$barang->kode_barang}}" class="form-control @error('kode_barang') is-invalid @enderror">
                              @error('kode_barang')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -26,51 +26,58 @@ Data Laporan
             <div class="card">
                 <div class="card-header">
                     DATA LAPORAN
-                    <a href="{{route('laporan.create')}}" class="float-right btn btn-sm btn-outline-primary">Tambah Laporan Baru</a>
+                    <a href="{{route('laporan.create')}}" class="float-right btn btn-sm btn-outline-primary"><i class="fas fa-fw fa-cart-plus"></i> Tambah Laporan</a>
                 </div>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div class="table-responsive table-striped">
-                        <table class="table">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Barang Keluar</th>
-                                <th>Tanggal Keluar</th>
-                                <th>Pemasukan</th>
-                                <th>Id Pembayaran</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                            @php $no=1; @endphp
-                            @foreach($laporan as $data)
-                                <tr>
-                                    <td>{{$no++}}</td>
-                                    <td>{{$data->nama_barang_keluar}}</td>
-                                    <td>{{$data->tanggal_keluar}}</td>
-                                    <td>{{$data->pemasukan}}</td>
-                                    <td>{{$data->pembayaran->id}}</td>
-                                    <td>{{$data->status}}</td>
-
-                                    <td>
-                                        <form action="{{route('laporan.destroy', $data->id)}}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <a href="{{route('laporan.edit', $data->id)}}" class="mb-2 btn btn-outline-info">Edit</a>
-                                            <a href="{{route('laporan.show', $data->id)}}" class="btn btn-info">Show</a><br>
-                                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
+                <div class="modal-body">
+                <form action="{{route('laporan.create')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label>Dari Tanggal</label>
+                        <input type="date" name="from" class="form-control datepicker" required="">
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label>Sampai Tanggal</label>
+                        <input type="date" name="to" class="form-control datepicker" required="">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary shadow-sm">Simpan</button>
+                        <button type="button" class="btn btn-light shadow-sm" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+{{-- <!-- Modal -->
+<div class="modal fade" id="export" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-header bg-gradient-success rounded-0">
+                <h5 class="modal-title text-white">Laporan Barang Bulanan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('laporan.create')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label>Dari Tanggal</label>
+                        <input type="text" name="from" class="form-control datepicker" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Sampai Tanggal</label>
+                        <input type="text" name="to" class="form-control datepicker" required="">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary shadow-sm">Simpan</button>
+                        <button type="button" class="btn btn-light shadow-sm" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> --}}

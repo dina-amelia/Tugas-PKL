@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Alert;
-use Validator;
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Validator;
 
 class BarangController extends Controller
 {
@@ -51,11 +52,11 @@ class BarangController extends Controller
             'kode_barang' => 'required',
             'nama_barang' => 'required|max:255|unique:barangs',
             'stock' => 'required|numeric|max:2048',
-            'tanggal_masuk'=>'required',
-            'harga'=>'required|numeric',
-            'kategori'=>'required',
-            'deskripsi'=>'required|max:255',
-            'gambar'=>'required|image|max:2048',
+            'tanggal_masuk' => 'required',
+            'harga' => 'required|numeric',
+            'kategori' => 'required',
+            'deskripsi' => 'required|max:255',
+            'gambar' => 'required|image|max:2048',
         ];
 
         $message = [
@@ -75,9 +76,9 @@ class BarangController extends Controller
             'gambar.image' => 'file harus bersifat foto',
         ];
 
-        $validation = Validator::make($request->all(),$rules,$message);
-        if($validation->fails()){
-            Alert::error('Oops','Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
+        $validation = Validator::make($request->all(), $rules, $message);
+        if ($validation->fails()) {
+            Alert::error('Oops', 'Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
             return back()->withErrors($validation)->withInput();
         }
 
@@ -89,9 +90,9 @@ class BarangController extends Controller
         $barang->harga = $request->harga;
         $barang->kategori = $request->kategori;
         $barang->deskripsi = $request->deskripsi;
-        if ($request->hasFile('gambar')){
+        if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
-            $name = rand(1000, 9999)."".$request->gambar->getClientOriginalName();
+            $name = rand(1000, 9999) . "" . $request->gambar->getClientOriginalName();
             $image->move('image/barangs/', $name);
             $barang->gambar = $name;
         }
@@ -138,11 +139,11 @@ class BarangController extends Controller
             'kode_barang' => 'required',
             'nama_barang' => 'required|max:255|unique:barangs',
             'stock' => 'required|numeric|max:2048',
-            'tanggal_masuk'=>'required',
-            'harga'=>'required|numeric',
-            'kategori'=>'required',
-            'deskripsi'=>'required|max:255',
-            'gambar'=>'required|image|max:2048',
+            'tanggal_masuk' => 'required',
+            'harga' => 'required|numeric',
+            'kategori' => 'required',
+            'deskripsi' => 'required|max:255',
+            'gambar' => 'required|image|max:2048',
         ];
 
         $message = [
@@ -162,9 +163,9 @@ class BarangController extends Controller
             'gambar.image' => 'file harus bersifat foto',
         ];
 
-        $validation = Validator::make($request->all(),$rules,$message);
-        if($validation->fails()){
-            Alert::error('Oops','Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
+        $validation = Validator::make($request->all(), $rules, $message);
+        if ($validation->fails()) {
+            Alert::error('Oops', 'Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
             return back()->withErrors($validation)->withInput();
         }
 
@@ -176,9 +177,9 @@ class BarangController extends Controller
         $barang->harga = $request->harga;
         $barang->kategori = $request->kategori;
         $barang->deskripsi = $request->deskripsi;
-        if ($request->hasFile('gambar')){
+        if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
-            $name = rand(1000, 9999)."".$request->gambar->getClientOriginalName();
+            $name = rand(1000, 9999) . "" . $request->gambar->getClientOriginalName();
             $image->move('image/barangs/', $name);
             $barang->gambar = $name;
         }
@@ -194,7 +195,7 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        if(!Barang::destroy($id)){
+        if (!Barang::destroy($id)) {
             return redirect()->back();
         }
         Alert::success('Good Job', 'Data deleted successfully');

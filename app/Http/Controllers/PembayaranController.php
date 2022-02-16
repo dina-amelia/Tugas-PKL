@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Alert;
-use App\Models\Pesanan;
+use App\Models\Barang;
 use App\Models\Pembayaran;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -24,6 +26,13 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // public function laporan()
+    // {
+    //     $laporan = Pembayaran::all();
+    //     return view('admin.transaksi.laporan', compact('laporan'));
+    // }
+
     public function create()
     {
         $pesanan = Pesanan::all();
@@ -39,12 +48,11 @@ class PembayaranController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_barang'=>'required',
-            'no_telephone'=>'required',
-            'qty'=>'required',
-            'pesanan_id'=>'required',
-            'tanggal_bayar'=>'required',
-            'total'=>'required',
+            'nama_barang' => 'required',
+            'no_telephone' => 'required',
+            'qty' => 'required',
+            'pesanan_id' => 'required',
+            'tanggal_bayar' => 'required',
         ]);
 
         $pembayaran = new Pembayaran;
@@ -53,7 +61,10 @@ class PembayaranController extends Controller
         $pembayaran->qty = $request->qty;
         $pembayaran->pesanan_id = $request->pesanan_id;
         $pembayaran->tanggal_bayar = $request->tanggal_bayar;
-        $pembayaran->total = $request->total;
+        $price = Barang::findOrFail($request->pesanan_id);
+        $pembayaran->harga = $price->harga;
+        $pembayaran->total = $price->harga * $request->qty;
+
         $pembayaran->save();
         Alert::success('Good Job', 'Data successfully');
         return redirect()->route('transaksi.index');
@@ -81,7 +92,7 @@ class PembayaranController extends Controller
     {
         $pembayaran = Pembayaran::findOrFail($id);
         $pesanan = Pesanan::all();
-        return view('admin.transaksi.edit', compact('pembayaran','pesanan'));
+        return view('admin.transaksi.edit', compact('pembayaran', 'pesanan'));
     }
 
     /**
@@ -94,12 +105,12 @@ class PembayaranController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama_barang'=>'required',
-            'no_telephone'=>'required',
-            'qty'=>'required',
-            'pesanan_id'=>'required',
-            'tanggal_bayar'=>'required',
-            'total'=>'required',
+            'nama_barang' => 'required',
+            'no_telephone' => 'required',
+            'qty' => 'required',
+            'pesanan_id' => 'required',
+            'tanggal_bayar' => 'required',
+            'total' => 'required',
         ]);
 
         $pembayaran = Pembayaran::findOrFail($id);
@@ -108,7 +119,9 @@ class PembayaranController extends Controller
         $pembayaran->qty = $request->qty;
         $pembayaran->pesanan_id = $request->pesanan_id;
         $pembayaran->tanggal_bayar = $request->tanggal_bayar;
-        $pembayaran->total = $request->total;
+        $price = Barang::findOrFail($request->pesanan_id);
+        $pembayaran->harga = $price->harga;
+        $pembayaran->total = $price->harga * $request->qty;
         $pembayaran->save();
         Alert::success('Good Job', 'Data successfully');
         return redirect()->route('transaksi.index');
@@ -122,7 +135,7 @@ class PembayaranController extends Controller
      */
     public function destroy($id)
     {
-        if(!Pembayaran::destroy($id)){
+        if (!Pembayaran::destroy($id)) {
             return redirect()->back();
         }
         Alert::success('Good Job', 'Data deleted successfully');

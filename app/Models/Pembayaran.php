@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pembayaran extends Model
 {
     use HasFactory;
-    protected $visible = ['nama_barang','no_telephone','qty','pesanan_id','tanggal_bayar','total'];
-    protected $fillable = ['nama_barang','no_telephone','qty','pesanan_id','tanggal_bayar','total'];
+    protected $visible = ['nama_barang', 'no_telephone', 'qty', 'pesanan_id', 'tanggal_bayar', 'harga', 'total'];
+    protected $fillable = ['nama_barang', 'no_telephone', 'qty', 'pesanan_id', 'tanggal_bayar', 'harga', 'total'];
     public $timestamps = true;
 
     public function pesanan()

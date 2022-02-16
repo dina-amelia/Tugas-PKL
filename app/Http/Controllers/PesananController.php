@@ -47,6 +47,7 @@ class PesananController extends Controller
             'jumlah' => 'required|numeric|min:1|max:' . $barang->stock,
             'barang_id' => 'required',
             'tanggal_pesan' => 'required',
+            'tanggal_bayar' => 'required',
         ]);
 
         $pesanan = new Pesanan;
@@ -56,10 +57,14 @@ class PesananController extends Controller
         $pesanan->jumlah = $request->jumlah;
         $pesanan->barang_id = $request->barang_id;
         $pesanan->tanggal_pesan = $request->tanggal_pesan;
-        $pesanan->save();
         $barang = Barang::findOrFail($request->barang_id = $request->barang_id);
         $barang->stock -= $request->jumlah;
         $barang->save();
+        $price = Barang::findOrFail($request->barang_id);
+        $pesanan->harga = $price->harga;
+        $pesanan->total = $price->harga * $request->jumlah;
+        $pesanan->tanggal_bayar = $request->tanggal_bayar;
+        $pesanan->save();
         Alert::success('Good Job', 'Data successfully');
         return redirect()->route('pesanan.index');
     }
@@ -106,6 +111,8 @@ class PesananController extends Controller
             'jumlah' => 'required',
             'barang_id' => 'required',
             'tanggal_pesan' => 'required',
+            'tanggal_bayar' => 'required',
+
         ]);
 
         $pesanan = Pesanan::findOrFail($id);
@@ -114,8 +121,12 @@ class PesananController extends Controller
         $pesanan->no_telephone = $request->no_telephone;
         $pesanan->jumlah = $request->jumlah;
         $pesanan->barang_id = $request->barang_id;
-        $pesanan->harga = $request->harga;
         $pesanan->tanggal_pesan = $request->tanggal_pesan;
+        $price = Barang::findOrFail($request->barang_id);
+        $pesanan->harga = $price->harga;
+        $pesanan->total = $price->harga * $request->jumlah;
+        $pesanan->tanggal_bayar = $request->tanggal_bayar;
+        dd($pesanan);
         $pesanan->save();
         return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil diupdate');
     }

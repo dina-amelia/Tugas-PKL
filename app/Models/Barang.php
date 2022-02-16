@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     use HasFactory;
-    protected $visible = ['kode_barang','nama_barang','stock','tanggal_masuk','harga','kategori','deskripsi','gambar'];
-    protected $fillable = ['kode_barang','nama_barang','stock','tanggal_masuk','harga','kategori','deskripsi','gambar'];
+    protected $visible = ['kode_barang', 'nama_barang', 'stock', 'tanggal_masuk', 'harga', 'kategori', 'deskripsi', 'gambar'];
+    protected $fillable = ['kode_barang', 'nama_barang', 'stock', 'tanggal_masuk', 'harga', 'kategori', 'deskripsi', 'gambar'];
     public $timestamps = true;
 
     public function pesanan()
@@ -20,11 +20,12 @@ class Barang extends Model
         return $this->hasMany('App\Models\Pesanan', 'barang_id');
     }
 
-    public static function boot(){
+    public static function boot()
+    {
         parent::boot();
-        self::deleting(function($barang){
+        self::deleting(function ($barang) {
             //mengecek apakah barang masih mempunyai pesanan
-            if($barang->pesanan->count() > 0){
+            if ($barang->pesanan->count() > 0) {
                 Alert::error('Failed', 'Data not deleted because barang have pesanan');
                 return false;
             }

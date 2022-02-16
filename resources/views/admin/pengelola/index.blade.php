@@ -54,7 +54,7 @@ Data Barang
                                             <td>{{$data->nama_barang}}</td>
                                             <td>{{$data->stock}}</td>
                                             <td>{{$data->tanggal_masuk}}</td>
-                                            <td>{{$data->harga}}</td>
+                                            <td>Rp. {{number_format ($data->harga, 0, ',' , '.')}}</td>
                                             <td>{{$data->kategori}}</td>
                                             <td>{{$data->deskripsi}}</td>
                                             <td><img src="{{$data->image()}}" alt="" style="width:150px; height:150px;" alt="gambar"></td>

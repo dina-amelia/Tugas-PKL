@@ -89,6 +89,15 @@ Dashboard
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="">Tanggal Bayar</label>
+                            <input type="date" name="tanggal_bayar" class="form-control @error('tanggal_bayar') is-invalid @enderror">
+                             @error('tanggal_bayar')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <button type="reset" class="btn btn-outline-warning">Reset</button>
                             <button type="submit" class="btn btn-outline-primary">Simpan</button>
                         </div>

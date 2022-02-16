@@ -25,6 +25,9 @@ class CreatePesanansTable extends Migration
                 ->on('barangs')->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->date('tanggal_pesan');
+            $table->integer('harga');
+            $table->integer('total');
+            $table->date('tanggal_bayar');
             $table->timestamps();
 
         });

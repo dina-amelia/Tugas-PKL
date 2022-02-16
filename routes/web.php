@@ -1,13 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\PesananController;
 use App\Http\Controllers\PembayaranController;
-use App\Http\Controllers\LaporanController;
-
-
-
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\ReportController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +15,7 @@ use App\Http\Controllers\LaporanController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,14 +23,22 @@ Route::get('/', function () {
 
 Auth::routes(
     [
-        'register' => false
+        'register' => false,
     ]
 );
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    Route::get('/home')->middleware(['role:admin'])->name('home');
+    Route::resource('pengelola', BarangController::class)->middleware(['role:admin']);
+    Route::resource('pesanan', PesananController::class)->middleware(['role:admin']);
+    Route::resource('transaksi', PembayaranController::class)->middleware(['role:admin']);
+    Route::get('cetak-laporan', [ReportController::class, 'pesanan'])->name('getPesanan');
+    Route::post('cetak-laporan', [ReportController::class, 'reportPesanan'])->name('reportPesanan');
+});
 
-// Route::group(['prefix' => 'admin', 'middleware'=> ['auth','role:admin']], function(){
+// Route::group(['prefix' => 'admin', 'middleware'=> ['auth']], function(){
 //     Route::get('/home', function(){
 //         return 'halaman admin';
 //     });
@@ -42,7 +47,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //         return 'halaman profile admin';
 //     });
 // });
-
 
 // //hanya untuk role pengguna
 // Route::group(['prefix'=>'pengguna','middleware' => ['auth', 'role:pengguna']], function(){
@@ -61,41 +65,36 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     })->middleware(['role:admin|pengguna']);
 // });
 
+// Route::resource('admin/pengelola', BarangController::class);
 
-Route::resource('admin/pengelola',BarangController::class);
+// Route::resource('admin/pesanan', PesananController::class);
 
-Route::resource('admin/pesanan',PesananController::class);
+// Route::resource('admin/transaksi', PembayaranController::class);
 
-Route::resource('admin/transaksi',PembayaranController::class);
+// Route::get('admin/laporan', PembayaranController::class);
 
-Route::resource('admin/laporan',LaporanController::class);
+// Route::get('admin/laporan', [PembayaranController::class, "laporan"]);
 
-Route::get('/user', function() {
+Route::get('/user', function () {
     return view('frontend.home');
 });
 
-Route::get('/shop', function() {
+Route::get('/shop', function () {
     return view('frontend.shop');
 });
 
-Route::get('/detail', function() {
+Route::get('/detail', function () {
     return view('frontend.detail');
 });
 
-Route::get('/cart', function() {
+Route::get('/cart', function () {
     return view('frontend.cart');
 });
 
-Route::get('/checkout', function() {
+Route::get('/checkout', function () {
     return view('frontend.checkout');
 });
 
-Route::get('/contact', function() {
+Route::get('/contact', function () {
     return view('frontend.contact');
 });
-
-
-
-
-
-

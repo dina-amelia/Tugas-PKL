@@ -39,6 +39,7 @@ Data Transaksi
                                     <th>Qty</th>
                                     <th>Id Pesanan</th>
                                     <th>Tanggal Bayar</th>
+                                    <th>Harga</th>
                                     <th>Total</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -47,13 +48,14 @@ Data Transaksi
                             @foreach($pembayaran as $data)
                             <tbody>
                                 <tr>
-                                        <td>{{$no++}}</td>
-                                        <td>{{$data->nama_barang}}</td>
-                                        <td>{{$data->no_telephone}}</td>
-                                        <td>{{$data->qty}}</td>
-                                        <td>{{$data->pesanan->id}}</td>
-                                        <td>{{$data->tanggal_bayar}}</td>
-                                        <td>{{$data->total}}</td>
+                                    <td>{{$no++}}</td>
+                                    <td>{{$data->nama_barang}}</td>
+                                    <td>{{$data->no_telephone}}</td>
+                                    <td>{{$data->qty}}</td>
+                                    <td>{{$data->pesanan->id}}</td>
+                                    <td>{{$data->tanggal_bayar}}</td>
+                                    <td>Rp. {{number_format ($data->harga, 0, ',' , '.')}}</td>
+                                    <td>Rp. {{number_format ($data->total, 0, ',' , '.')}}</td>
 
                                     <td>
                                         <form action="{{route('transaksi.destroy', $data->id)}}" method="post">

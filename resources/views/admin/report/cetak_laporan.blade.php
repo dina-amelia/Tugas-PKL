@@ -60,6 +60,9 @@
             </script>
         </center>
     </center>
+    <p>
+        <center>TOTAL KESELURUHAN = Rp. {{ number_format($total, 0, ',', '.') }}</center>
+    </p>
 </body>
 
 </html>

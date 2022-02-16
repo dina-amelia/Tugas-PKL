@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Alert;
 use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
-use Session;
 
 class ReportController extends Controller
 {
@@ -19,21 +19,23 @@ class ReportController extends Controller
         $start = $request->tanggalAwal;
         $end = $request->tanggalAkhir;
         if ($start > $end) {
-            Session::flash("flash_notification", [
-                "level" => "danger",
-                "message" => "Maaf tanggal yang anda masukan tidak sesuai",
-            ]);
+            Alert::error('Oops', 'Maaf tanggal yang anda masukan tidak sesuai')->autoclose(2000);
             return back();
 
         } else {
-            $pesanan = Pesanan::whereBetween('created_at', [$start, $end])
-                ->get();
+            $pesanan = Pesanan::whereBetween('created_at', [$start, $end])->get();
+            $total = 0;
+
+            foreach ($pesanan as $value) {
+                $total += $value->total;
+            }
+
             // $total = Pesanan::select('user_id', DB::raw('sum(user_id) as total_pengguna'))->groupBy('user_id')->first();
             // dd($total);
             // dd($pesanan);
             // $pdf = \PDF::loadView('admin.report.pesanan_report', ['pesanan' => $pesanan]);
             // return $pdf->download('pesanan-report.pdf');
-            return view('admin.report.cetak_laporan', ['pesanan' => $pesanan]);
+            return view('admin.report.cetak_laporan', ['pesanan' => $pesanan, 'total' => $total]);
         }
 
     }

@@ -27,6 +27,8 @@ class CreatePesanansTable extends Migration
             $table->date('tanggal_pesan');
             $table->integer('harga');
             $table->integer('total');
+            $table->integer('uang');
+            $table->integer('kembalian');
             $table->date('tanggal_bayar');
             $table->timestamps();
 

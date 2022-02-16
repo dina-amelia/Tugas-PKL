@@ -47,24 +47,18 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
-            'nama_barang' => 'required',
-            'no_telephone' => 'required',
-            'qty' => 'required',
             'pesanan_id' => 'required',
-            'tanggal_bayar' => 'required',
+            'uang' => 'required',
+            // 'kembalian' => 'required',
         ]);
 
         $pembayaran = new Pembayaran;
-        $pembayaran->nama_barang = $request->nama_barang;
-        $pembayaran->no_telephone = $request->no_telephone;
-        $pembayaran->qty = $request->qty;
         $pembayaran->pesanan_id = $request->pesanan_id;
-        $pembayaran->tanggal_bayar = $request->tanggal_bayar;
-        $price = Barang::findOrFail($request->pesanan_id);
-        $pembayaran->harga = $price->harga;
-        $pembayaran->total = $price->harga * $request->qty;
-
+        $pembayaran->uang = $pembayaran->uang;
+        $price = Pesanan::findOrFail($request->pesanan_id);
+        $pembayaran->kembalian = $pembayaran->uang - $request->total;
         $pembayaran->save();
         Alert::success('Good Job', 'Data successfully');
         return redirect()->route('transaksi.index');

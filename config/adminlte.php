@@ -256,12 +256,12 @@ return [
             'icon' => 'fas fa-clipboard-list',
 
         ],
-        [
-            'text' => 'Transaksi',
-            'url' => 'admin/transaksi',
-            'icon' => 'fas fa-dollar-sign',
+        // [
+        //     'text' => 'Transaksi',
+        //     'url' => 'admin/transaksi',
+        //     'icon' => 'fas fa-dollar-sign',
 
-        ],
+        // ],
         [
             'text' => 'Laporan',
             'url' => 'admin/cetak-laporan',

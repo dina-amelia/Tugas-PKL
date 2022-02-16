@@ -47,6 +47,7 @@ class PesananController extends Controller
             'jumlah' => 'required|numeric|min:1|max:' . $barang->stock,
             'barang_id' => 'required',
             'tanggal_pesan' => 'required',
+            'uang' => 'required',
             'tanggal_bayar' => 'required',
         ]);
 
@@ -63,6 +64,8 @@ class PesananController extends Controller
         $price = Barang::findOrFail($request->barang_id);
         $pesanan->harga = $price->harga;
         $pesanan->total = $price->harga * $request->jumlah;
+        $pesanan->uang = $request->uang;
+        $pesanan->kembalian = $pesanan->uang - $pesanan->total;
         $pesanan->tanggal_bayar = $request->tanggal_bayar;
         $pesanan->save();
         Alert::success('Good Job', 'Data successfully');

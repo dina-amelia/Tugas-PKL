@@ -29,7 +29,7 @@
                                 <input type="date" name="tanggalAkhir" id="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-block btn-primary" type="submit">Search Report</button>
+                                <button class="btn btn-block btn-primary" type="submit">Search Laporan</button>
                             </div>
                         </form>
                     </div>

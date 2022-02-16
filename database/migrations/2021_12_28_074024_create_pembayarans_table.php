@@ -15,17 +15,13 @@ class CreatePembayaransTable extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang');
-            $table->integer('no_telephone');
-            $table->integer('qty');
             $table->unsignedBigInteger('pesanan_id');
             $table->foreign('pesanan_id')
                 ->references('id')
                 ->on('pesanans')->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->date('tanggal_bayar');
-            $table->integer('harga');
-            $table->integer('total');
+            $table->integer('uang');
+            $table->integer('kembalian');
             $table->timestamps();
 
         });

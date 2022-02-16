@@ -35,7 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Pemesanan</th>
+                                        <th>Nama Pemesan</th>
                                         <th>Alamat</th>
                                         <th>No Telephone</th>
                                         <th>Jumlah</th>
@@ -44,6 +44,8 @@
                                         <th>Tanggal Pesan</th>
                                         <th>Total</th>
                                         <th>Tanggal Bayar</th>
+                                        <th>Uang</th>
+                                        <th>Kembalian</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -61,6 +63,8 @@
                                             <td>{{ $data->tanggal_pesan }}</td>
                                             <td>Rp. {{ number_format($data->total, 0, ',', '.') }}</td>
                                             <td>{{ $data->tanggal_bayar }}</td>
+                                            <td>Rp. {{ number_format($data->uang, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($data->kembalian, 0, ',', '.') }}</td>
 
                                             <td>
                                                 <form action="{{ route('pesanan.destroy', $data->id) }}" method="post">

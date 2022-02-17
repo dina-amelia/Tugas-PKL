@@ -13,7 +13,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <center>
-                    <h4>LAPORAN PESANAN BULANAN</h4>
+                    <h2>LAPORAN PESANAN BULANAN</h2>
                 </center>
                 <table class="table" border="1" id="pesanan">
                     <thead>
@@ -29,6 +29,7 @@
                                 <th>Tanggal Pesan</th>
                                 <th>Total</th>
                                 <th>Tanggal Bayar</th>
+                                <th>Tanggal</th>
                             </tr>
                         </center>
                     </thead>
@@ -41,11 +42,14 @@
                                     <td>{{ $data->pemesan }}</td>
                                     <td>{{ $data->alamat }}</td>
                                     <td>0{{ $data->no_telephone }}</td>
-                                    <td>{{ $data->jumlah }}</td>
+                                    <td>
+                                        <center>{{ $data->jumlah }}</center>
+                                    </td>
                                     <td>{{ $data->barang->nama_barang }}</td>
                                     <td>Rp. {{ number_format($data->barang->harga, 0, ',', '.') }}</td>
                                     <td>{{ $data->tanggal_pesan }}</td>
                                     <td>Rp. {{ number_format($data->total, 0, ',', '.') }}</td>
+                                    <td>{{ $data->tanggal_bayar }}</td>
                                     <td> {{ $data->created_at->format('d M Y') }}</td>
                                 </tr>
                             </center>

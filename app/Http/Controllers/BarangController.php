@@ -49,7 +49,6 @@ class BarangController extends Controller
         // ]);
 
         $rules = [
-            'kode_barang' => 'required',
             'nama_barang' => 'required|max:255|unique:barangs',
             'stock' => 'required|numeric|max:2048',
             'tanggal_masuk' => 'required',
@@ -60,7 +59,6 @@ class BarangController extends Controller
         ];
 
         $message = [
-            'kode_barang.required' => 'kode barang harus diisi',
             'nama_barang.required' => 'nama barang harus di isi',
             'nama_barang.unique' => 'nama barang sudah digunakan',
             'nama_barang.max' => 'nama barang maksimal 255 karakter',
@@ -83,7 +81,7 @@ class BarangController extends Controller
         }
 
         $barang = new Barang;
-        $barang->kode_barang = $request->kode_barang;
+        $barang->kode_barang = mt_rand(1000, 9999);
         $barang->nama_barang = $request->nama_barang;
         $barang->stock = $request->stock;
         $barang->tanggal_masuk = $request->tanggal_masuk;
@@ -136,7 +134,6 @@ class BarangController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'kode_barang' => 'required',
             'nama_barang' => 'required|max:255|unique:barangs',
             'stock' => 'required|numeric|max:2048',
             'tanggal_masuk' => 'required',
@@ -147,7 +144,6 @@ class BarangController extends Controller
         ];
 
         $message = [
-            'kode_barang.required' => 'kode barang harus diisi',
             'nama_barang.required' => 'nama barang harus di isi',
             'nama_barang.unique' => 'nama barang sudah digunakan',
             'nama_barang.max' => 'nama barang maksimal 255 karakter',
@@ -170,7 +166,7 @@ class BarangController extends Controller
         }
 
         $barang = Barang::findOrFail($id);
-        $barang->kode_barang = $request->kode_barang;
+        $barang->kode_barang = mt_rand(1000, 9999);
         $barang->nama_barang = $request->nama_barang;
         $barang->tanggal_masuk = $request->tanggal_masuk;
         $barang->stock = $request->stock;

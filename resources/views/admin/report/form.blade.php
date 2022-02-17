@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    Admin Dashrboard
+    LAPORAN
 @endsection
 
 @section('css')
@@ -15,8 +15,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
-
+                    <div class="card-header">{{ __('LAPORAN BULANAN') }}</div>
                     <div class="card-body">
                         <form action="{{ route('reportPesanan') }}" method="post">
                             @csrf

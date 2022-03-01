@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Alert;
+use App\Exports\PesananExport;
+use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Validator;
 
 class PesananController extends Controller
 {
@@ -25,6 +29,7 @@ class PesananController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         $barang = Barang::all();
@@ -39,8 +44,19 @@ class PesananController extends Controller
      */
     public function store(Request $request)
     {
+        // $barang = Barang::find($request->barang_id);
+        // $validated = $request->validate([
+        //     'pemesan' => 'required',
+        //     'alamat' => 'required',
+        //     'no_telephone' => 'required',
+        //     'jumlah' => 'required|numeric|min:1|max:' . $barang->stock,
+        //     'barang_id' => 'required',
+        //     'tanggal_pesan' => 'required',
+        //     'uang' => 'required',
+        //     'tanggal_bayar' => 'required',
+        // ]);
         $barang = Barang::find($request->barang_id);
-        $validated = $request->validate([
+        $rules = [
             'pemesan' => 'required',
             'alamat' => 'required',
             'no_telephone' => 'required',
@@ -49,7 +65,25 @@ class PesananController extends Controller
             'tanggal_pesan' => 'required',
             'uang' => 'required',
             'tanggal_bayar' => 'required',
-        ]);
+        ];
+
+        $message = [
+            'pemesan.required' => 'nama pemesan harus di isi',
+            'alamat.required' => 'alamat harus di isi',
+            'no_telephone.required' => 'no telephone harus di isi',
+            'jumlah.required' => 'jumlah harus di isi',
+            'jumlah.numeric' => 'hanya boleh di isi oleh angka',
+            'tanggal_pesan.required' => 'tanggal pesan harus di isi',
+            'uang.required' => 'uang harus di isi',
+            'tanggal_bayar' => 'tanggal bayar harus di isi',
+
+        ];
+
+        $validation = Validator::make($request->all(), $rules, $message);
+        if ($validation->fails()) {
+            Alert::error('Maaf', 'Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
+            return back()->withErrors($validation)->withInput();
+        }
 
         $pesanan = new Pesanan;
         $pesanan->pemesan = $request->pemesan;
@@ -68,7 +102,7 @@ class PesananController extends Controller
         $pesanan->kembalian = $pesanan->uang - $pesanan->total;
         $pesanan->tanggal_bayar = $request->tanggal_bayar;
         $pesanan->save();
-        Alert::success('Good Job', 'Data successfully');
+        Alert::success('Bagus Sekali', 'Data berhasil disimpan');
         return redirect()->route('pesanan.index');
     }
 
@@ -131,7 +165,8 @@ class PesananController extends Controller
         $pesanan->tanggal_bayar = $request->tanggal_bayar;
         dd($pesanan);
         $pesanan->save();
-        return redirect()->route('pesanan.index')->with('status', 'Pesanan Berhasil diupdate');
+        Alert::success('Bagus Sekali', 'Data berhasil diupdate');
+        return redirect()->route('pesanan.index');
     }
 
     /**
@@ -145,7 +180,12 @@ class PesananController extends Controller
         if (!Pesanan::destroy($id)) {
             return redirect()->back();
         }
-        Alert::success('Good Job', 'Data deleted successfully');
+        Alert::success('Bagus Sekali', 'Data berhasil dihapus');
         return redirect()->route('pesanan.index');
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new PesananExport . 'pesanan.xlsx');
     }
 }

@@ -95,7 +95,7 @@ class BarangController extends Controller
             $barang->gambar = $name;
         }
         $barang->save();
-        Alert::success('Good Job', 'Data successfully');
+        Alert::success('Bagus Sekali', 'Data berhasil disimpan');
         return redirect()->route('pengelola.index');
 
     }
@@ -161,7 +161,7 @@ class BarangController extends Controller
 
         $validation = Validator::make($request->all(), $rules, $message);
         if ($validation->fails()) {
-            Alert::error('Oops', 'Data yang anda input tidak valid, silahkan diulang')->autoclose(2000);
+            Alert::error('Maaf', 'Data yang anda input tidak valid, silahkan input ulang')->autoclose(4000);
             return back()->withErrors($validation)->withInput();
         }
 
@@ -180,7 +180,8 @@ class BarangController extends Controller
             $barang->gambar = $name;
         }
         $barang->save();
-        return redirect()->route('pengelola.index')->with('status', 'Produk Berhasil diupdate');
+        Alert::success('Bagus Sekali', 'Data berhasil diupdate');
+        return redirect()->route('pengelola.index');
     }
 
     /**
@@ -194,7 +195,7 @@ class BarangController extends Controller
         if (!Barang::destroy($id)) {
             return redirect()->back();
         }
-        Alert::success('Good Job', 'Data deleted successfully');
+        Alert::success('Bagus Sekali', 'Data berhasil dihapus');
         return redirect()->route('pengelola.index');
     }
 }

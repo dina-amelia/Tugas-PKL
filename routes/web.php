@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes(
@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::resource('transaksi', PembayaranController::class)->middleware(['role:admin']);
     Route::get('cetak-laporan', [ReportController::class, 'pesanan'])->name('getPesanan');
     Route::post('cetak-laporan', [ReportController::class, 'reportPesanan'])->name('reportPesanan');
+    Route::post('/laporan/pesanan/export/', [PesananController::class, 'export_excel']);
 });
 
 // Route::group(['prefix' => 'admin', 'middleware'=> ['auth']], function(){

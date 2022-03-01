@@ -7,6 +7,7 @@
     Data Barang
 
 @endsection
+
 @section('header')
     <div class="content-header">
         <div class="container-fluid">
@@ -27,7 +28,7 @@
                     <div class="card-header">
                         BERANDA PRODUK
                         <a href="{{ route('pengelola.create') }}" class="float-right btn btn-sm btn-outline-primary"><i
-                                class="fas fa-fw fa-cart-plus"></i> Tambah Barang</a>
+                                class="fas fa-fw fa-cart-plus"></i>Tambah Barang</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive ">
@@ -62,12 +63,16 @@
                                                 <form action="{{ route('pengelola.destroy', $data->id) }}" method="post">
                                                     @method('delete')
                                                     @csrf
-                                                    <a href="{{ route('pengelola.edit', $data->id) }}"
-                                                        class="btn btn-info">Edit</a>
-                                                    <a href="{{ route('pengelola.show', $data->id) }}"
-                                                        class="btn btn-info">Show</a>
-                                                    <button type="submit"
-                                                        class="btn btn-danger delete-confirm">Delete</button><br>
+                                                    <p><a href="{{ route('pengelola.edit', $data->id) }}"
+                                                            class="btn btn-outline-warning"><i
+                                                                class="fa fa-edit"></i></a>
+                                                        <a href="{{ route('pengelola.show', $data->id) }}"
+                                                            class="btn btn-outline-info"><i
+                                                                class="fa fa-eye"></i></a><br>
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger delete-confirm "><i
+                                                                class="fas fa-window-close"></i></button>
+                                                    </p>
                                                 </form>
                                             </td>
                                         </tr>

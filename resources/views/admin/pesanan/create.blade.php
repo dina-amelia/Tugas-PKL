@@ -32,7 +32,8 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">Pemesan</label>
-                                <input type="text" name="pemesan" class="form-control @error('title') is-invalid @enderror">
+                                <input type="text" name="pemesan"
+                                    class="form-control @error('pemesan') is-invalid @enderror">
                                 @error('pemesan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -41,82 +42,83 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Alamat</label>
-                                <textarea type="file" name="alamat" class="form-control"></textarea>
-                                @error('alamat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <textarea type="file" name="alamat"
+                                    class="form-control @error('alamat') is-invalid @enderror""></textarea>
+                                            @error('alamat')
+        <span class="   invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+    @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">No Telephone</label>
+                                            <input type="text" name="no_telephone"
+                                                class="form-control @error('no_telephone') is-invalid @enderror">
+                                            @error('no_telephone')
+        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+    @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Jumlah</label>
+                                            <input type="text" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
+                                            @error('jumlah')
+        <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+    @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Id Barang</label>
+                                            <select name="barang_id" class="form-control @error('barang_id') is-invalid @enderror">
+                                                @foreach ($barang as $data)
+    <option value="{{ $data->id }}">{{ $data->nama_barang }}</option>
+    @endforeach
+                                            </select>
+                                            @error('barang_id')
+        <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+    @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Tanggal Pesan</label>
+                                            <input type="date" name="tanggal_pesan"
+                                                class="form-control @error('tanggal_pesan') is-invalid @enderror">
+                                            @error('tanggal_pesan')
+        <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+    @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Masukan Uang</label>
+                                            <input type="text" name="uang" class="form-control @error('uang') is-invalid @enderror">
+                                            @error('uang')
+        <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+    @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Tanggal Bayar</label>
+                                            <input type="date" name="tanggal_bayar"
+                                                class="form-control @error('tanggal_bayar') is-invalid @enderror">
+                                            @error('tanggal_bayar')
+        <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+    @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="reset" class="btn btn-outline-warning">Reset</button>
+                                            <button type="submit" class="btn btn-outline-primary">Simpan</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="">No Telephone</label>
-                                <input type="text" name="no_telephone"
-                                    class="form-control @error('amount') is-invalid @enderror">
-                                @error('no_telephone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="">Jumlah</label>
-                                <input type="text" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
-                                @error('jumlah')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="">Id Barang</label>
-                                <select name="barang_id" class="form-control @error('barang_id') is-invalid @enderror">
-                                    @foreach ($barang as $data)
-                                        <option value="{{ $data->id }}">{{ $data->nama_barang }}</option>
-                                    @endforeach
-                                </select>
-                                @error('barang_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal Pesan</label>
-                                <input type="date" name="tanggal_pesan"
-                                    class="form-control @error('amount') is-invalid @enderror">
-                                @error('tanggal_pesan')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="">Masukan Uang</label>
-                                <input type="text" name="uang" class="form-control @error('uang') is-invalid @enderror">
-                                @error('uang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal Bayar</label>
-                                <input type="date" name="tanggal_bayar"
-                                    class="form-control @error('tanggal_bayar') is-invalid @enderror">
-                                @error('tanggal_bayar')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <button type="reset" class="btn btn-outline-warning">Reset</button>
-                                <button type="submit" class="btn btn-outline-primary">Simpan</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 @endsection

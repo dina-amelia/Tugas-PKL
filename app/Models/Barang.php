@@ -26,7 +26,7 @@ class Barang extends Model
         self::deleting(function ($barang) {
             //mengecek apakah barang masih mempunyai pesanan
             if ($barang->pesanan->count() > 0) {
-                Alert::error('Failed', 'Data not deleted because barang have pesanan');
+                Alert::error('Gagal', 'Data tidak dapat dihapus');
                 return false;
             }
         });

@@ -31,16 +31,6 @@
                     <div class="card-body">
                         <form action="{{ route('pengelola.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            {{-- <div class="form-group">
-                                <label for="">Kode Barang</label>
-                                <input type="text" name="kode_barang"
-                                    class="form-control @error('kode_barang') is-invalid @enderror">
-                                @error('kode_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> --}}
                             <div class="form-group">
                                 <label for="">Nama Barang</label>
                                 <input type="text" name="nama_barang"

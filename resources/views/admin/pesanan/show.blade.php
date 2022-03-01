@@ -34,13 +34,13 @@
                                 class="form-control @error('pemesan') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="">Alamat</label>
-                            <input type="text" name="alamat" value="{{ $pesanan->alamat }}"
-                                class="form-control @error('alamat') is-invalid @enderror" readonly>
+                            <label for="">Alamat : </label>
+                            <textarea type="text" name="alamat" rows="4" cols="140"
+                                readonly>{{ $pesanan->alamat }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="">No Telephone</label>
-                            <input type="text" name="no_telephone" value="{{ $pesanan->no_telephone }}"
+                            <input type="text" name="no_telephone" value="0{{ $pesanan->no_telephone }}"
                                 class="form-control @error('no_telephone') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
@@ -55,7 +55,8 @@
                         </div>
                         <div class="form-group">
                             <label for="">Harga</label>
-                            <input type="text" name="harga" value="{{ $pesanan->harga }}"
+                            <input type="text" name="harga"
+                                value=" Rp. {{ number_format($pesanan->barang->harga, 0, ',', '.') }}"
                                 class="form-control @error('harga') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
@@ -63,6 +64,7 @@
                             <input type="date" name="tanggal_pesan" value="{{ $pesanan->tanggal_pesan }}"
                                 class="form-control @error('tanggal_pesan') is-invalid @enderror" readonly>
                         </div>
+
                         <div class="form-group">
                             <a href="{{ url('admin/pesanan') }}" class="btn btn-block btn-outline-primary">Kembali</a>
                         </div>

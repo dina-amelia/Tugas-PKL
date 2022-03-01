@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Laporan Bulanan</title>
 </head>
 
 <body>
@@ -13,8 +13,8 @@
         <div class="card-body">
             <div class="table-responsive">
                 <center>
-                    <h2>LAPORAN PESANAN BULANAN</h2>
-                </center>
+                    <h2><u>LAPORAN PESANAN BULANAN</u></h2>
+                </center><br>
                 <table class="table" border="1" id="pesanan">
                     <thead>
                         <center>
@@ -36,9 +36,11 @@
                     @php $no=1; @endphp
                     @foreach ($pesanan ?? '' as $data)
                         <tbody>
-                            <center>
-                                <tr>
-                                    <td>{{ $no++ }}</td>
+                            <tr>
+                                <center>
+                                    <td>
+                                        <center>{{ $no++ }}</center>
+                                    </td>
                                     <td>{{ $data->pemesan }}</td>
                                     <td>{{ $data->alamat }}</td>
                                     <td>0{{ $data->no_telephone }}</td>
@@ -47,14 +49,55 @@
                                     </td>
                                     <td>{{ $data->barang->nama_barang }}</td>
                                     <td>Rp. {{ number_format($data->barang->harga, 0, ',', '.') }}</td>
-                                    <td>{{ $data->tanggal_pesan }}</td>
+                                    <td>
+                                        <center>{{ $data->tanggal_pesan }}</center>
+                                    </td>
                                     <td>Rp. {{ number_format($data->total, 0, ',', '.') }}</td>
-                                    <td>{{ $data->tanggal_bayar }}</td>
+                                    <td>
+                                        <center>{{ $data->tanggal_bayar }}</center>
+                                    </td>
                                     <td> {{ $data->created_at->format('d M Y') }}</td>
-                                </tr>
-                            </center>
+                                </center>
+                            </tr>
+
                         </tbody>
                     @endforeach
+                </table>
+
+                <table class="table" border="1" id="pengelola">
+                    <center>
+                        <tr>
+                            <p>
+                                <center>TOTAL KESELURUHAN = Rp. {{ number_format($total, 0, ',', '.') }}</center>
+                            </p>
+                        </tr><br><br>
+                        <h2><u>LAPORAN BARANG MASUK</u></h2>
+                    </center><br>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Tanggal Masuk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $no=1; @endphp
+                        @foreach ($barang as $data)
+                            <tr>
+                                <td>
+                                    <center>{{ $no++ }}</center>
+                                </td>
+                                <td>
+                                    <center>{{ $data->kode_barang }}</center>
+                                </td>
+                                <td>{{ $data->nama_barang }}</td>
+                                <td>
+                                    <center>{{ $data->tanggal_masuk }}</center>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -64,9 +107,7 @@
             </script>
         </center>
     </center>
-    <p>
-        <center>TOTAL KESELURUHAN = Rp. {{ number_format($total, 0, ',', '.') }}</center>
-    </p>
+
 </body>
 
 </html>

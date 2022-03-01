@@ -29,6 +29,11 @@
                         <a href="{{ route('pesanan.create') }}" class="float-right btn btn-sm btn-outline-primary"><i
                                 class="fas fa-fw fa-cart-plus"></i> Tambah Pesanan Baru</a></a>
                     </div>
+                    {{-- <form action="" {{ url('admin/laporan/pesanan/export') }} method="post">
+                        @csrf
+                        <button style="float: right; margin-right: 15px" class="btn btn-sm btn-outline-success"
+                            type="submit">Export</button>
+                    </form> --}}
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table" id="pesanan">
@@ -65,17 +70,17 @@
                                             <td>{{ $data->tanggal_bayar }}</td>
                                             <td>Rp. {{ number_format($data->uang, 0, ',', '.') }}</td>
                                             <td>Rp. {{ number_format($data->kembalian, 0, ',', '.') }}</td>
-
                                             <td>
                                                 <form action="{{ route('pesanan.destroy', $data->id) }}" method="post">
                                                     @method('delete')
                                                     @csrf
-                                                    <a href="{{ route('pesanan.edit', $data->id) }}"
-                                                        class="mb-2 btn btn-warning">Edit</a>
-                                                    <a href="{{ route('pesanan.show', $data->id) }}"
-                                                        class="btn btn-info">Show</a><br>
-                                                    <button type="submit"
-                                                        class="btn btn-danger delete-confirm">Delete</button><br>
+                                                    <p><a href="{{ route('pesanan.edit', $data->id) }}"
+                                                            class="btn btn-outline-warning"><i
+                                                                class="fa fa-edit"></i></a>
+                                                        <a href="{{ route('pesanan.show', $data->id) }}"
+                                                            class="btn btn-outline-info"><i class="fa fa-search"></i></a>
+                                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                    </p>
                                                 </form>
                                             </td>
                                         </tr>

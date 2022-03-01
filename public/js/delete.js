@@ -3,13 +3,13 @@ $(".delete-confirm").click(function (event) {
     var name = $(this).data("name");
     event.preventDefault();
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "Apakah kamu yakin?",
+        text: "Kamu tidak dapat mengembalikan ini!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Ya, hapus saja",
     }).then((result) => {
         if (result.isConfirmed) {
             form.submit();

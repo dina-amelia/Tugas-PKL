@@ -26,6 +26,12 @@ class Pesanan extends Model
 
     }
 
+    public function barangkeluar()
+    {
+        return $this->hasMany('App\Models\BarangKeluar', 'pesanan_id');
+
+    }
+
     public static function boot()
     {
         parent::boot();

@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Data Barang')
+@section('title', 'Data Supplier')
 
 @section('content_header')
 
-    Data Barang
+    Data Supplier
 
 @endsection
 
@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="mb-2 row">
                 <div class="col-sm-12">
-                    <h1 class="m-0">DATA PRODUK</h1>
+                    <h1 class="m-0">DATA SUPPLIER</h1>
                 </div>
             </div>
         </div>
@@ -26,47 +26,35 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        BERANDA PRODUK
-                        <a href="{{ route('pengelola.create') }}" class="float-right btn btn-sm btn-outline-primary"><i
-                                class="fas fa-fw fa-cart-plus"></i>Tambah Barang</a>
+                        DATA SUPPLIER
+                        <a href="{{ route('supplier.create') }}" class="float-right btn btn-sm btn-outline-primary"><i
+                                class="fas fa-fw fa-cart-plus"></i>Tambah Supplier</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive ">
-                            <table class="table" id="pengelola">
+                            <table class="table" id="supplier">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kode Barang</th>
-                                        <th>Nama Barang</th>
-                                        <th>Stock</th>
-                                        <th>Harga</th>
-                                        <th>Kategori</th>
-                                        <th>Gambar</th>
+                                        <th>Nama Supplier</th>
+                                        <th>No Telephone</th>
+                                        <th>Alamat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php $no=1; @endphp
-                                    @foreach ($barang as $data)
+                                    @foreach ($supplier as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $data->kode_barang }}</td>
-                                            <td>{{ $data->barangmasuk->nama_barang }}</td>
-                                            <td>{{ $data->barangmasuk->jumlah_masuk }} pcs</td>
-                                            <td>Rp. {{ number_format($data->harga, 0, ',', '.') }}</td>
-                                            <td>{{ $data->kategori }}</td>
-                                            <td><img src="{{ $data->image() }}" alt="" style="width:150px; height:150px;"
-                                                    alt="gambar"></td>
+                                            <td>{{ $data->nama_supplier }}</td>
+                                            <td>0{{ $data->no_telephone }}</td>
+                                            <td>{{ $data->alamat }}</td>
                                             <td>
-                                                <form action="{{ route('pengelola.destroy', $data->id) }}" method="post">
+                                                <form action="{{ route('supplier.destroy', $data->id) }}" method="post">
                                                     @method('delete')
                                                     @csrf
-                                                    <p><a href="{{ route('pengelola.edit', $data->id) }}"
-                                                            class="btn btn-outline-warning"><i
-                                                                class="fa fa-edit"></i></a>
-                                                        <a href="{{ route('pengelola.show', $data->id) }}"
-                                                            class="btn btn-outline-info"><i
-                                                                class="fa fa-eye"></i></a><br>
+                                                    <p>
                                                         <button type="submit"
                                                             class="btn btn-outline-danger delete-confirm "><i
                                                                 class="fas fa-window-close"></i></button>
@@ -95,7 +83,7 @@
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#pengelola').DataTable();
+            $('#supplier').DataTable();
         });
     </script>
 @endsection

@@ -33,24 +33,32 @@
                             @csrf
                             <div class="form-group">
                                 <label for="">Nama Barang</label>
-                                <input type="text" name="nama_barang"
-                                    class="form-control @error('nama_barang') is-invalid @enderror">
-                                @error('nama_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <select name="barang_id" class="form-control @error('barang_id') is-invalid @enderror">
+                                    @foreach ($barangmasuk as $data)
+                                        <option value="{{ $data->id }}">{{ $data->nama_barang }}</option>
+                                    @endforeach
+                                </select>
+                                @error('barang_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
+
                             <div class="form-group">
                                 <label for="">Stock</label>
-                                <input type="text" name="stock" class="form-control @error('stock') is-invalid @enderror">
+                                <select name="stock" class="form-control @error('stock') is-invalid @enderror">
+                                    @foreach ($barangmasuk as $data)
+                                        <option value="{{ $data->id }}">{{ $data->jumlah_masuk }}</option>
+                                    @endforeach
+                                </select>
                                 @error('stock')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="">Tanggal Masuk</label>
                                 <input type="date" name="tanggal_masuk"
                                     class="form-control @error('tanggal_masuk') is-invalid @enderror">
@@ -59,7 +67,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="">Harga</label>
                                 <input type="text" name="harga" class="form-control @error('harga') is-invalid @enderror">

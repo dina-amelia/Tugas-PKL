@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Jumlah</label>
-                                            <input type="text" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
+                                            <input type="number" name="jumlah" class="form-control @error('jumlah') is-invalid @enderror">
                                             @error('jumlah')
         <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -70,10 +70,10 @@
     @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Id Barang</label>
+                                            <label for="">Nama Barang</label>
                                             <select name="barang_id" class="form-control @error('barang_id') is-invalid @enderror">
                                                 @foreach ($barang as $data)
-    <option value="{{ $data->id }}">{{ $data->nama_barang }}</option>
+    <option value="{{ $data->id }}">{{ $data->barangmasuk->nama_barang }}</option>
     @endforeach
                                             </select>
                                             @error('barang_id')

@@ -242,18 +242,36 @@ return [
 
         ],
         [
-            'header' => 'MANAGE'],
+            'header' => 'MANAGE',
+        ],
         [
-            'text' => 'Barang',
-            'url' => 'admin/pengelola',
-            'icon' => 'fas fa-box-open',
-            'can' => 'AksesAdmin',
+            'text' => 'Data Supplier',
+            'url' => 'admin/supplier',
+            'icon' => 'fas fa-users',
 
         ],
         [
-            'text' => 'Pesanan',
+            'text' => 'Barang Masuk',
+            'url' => 'admin/barangmasuk',
+            'icon' => 'fas fa-folder-plus',
+
+        ],
+        [
+            'text' => 'Data Barang',
+            'url' => 'admin/pengelola',
+            'icon' => 'fas fa-box-open',
+
+        ],
+        [
+            'text' => 'Data Pesanan',
             'url' => 'admin/pesanan',
             'icon' => 'fas fa-clipboard-list',
+
+        ],
+        [
+            'text' => 'Barang Keluar',
+            'url' => 'admin/barangkeluar',
+            'icon' => 'fas fa-folder-minus',
 
         ],
         // [
@@ -263,15 +281,9 @@ return [
 
         // ],
         [
-            'text' => 'Laporan',
+            'text' => 'Laporan Penjualan',
             'url' => 'admin/cetak-laporan',
             'icon' => 'fas fa-folder-open',
-            'submenu' => [
-                [
-                    'text' => 'Laporan Penjualan',
-                    'url' => 'admin/cetak-laporan',
-                ],
-            ],
 
         ],
         [

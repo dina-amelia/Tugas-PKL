@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangMasukController;
+use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +34,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/home')->middleware(['role:admin'])->name('home');
+    Route::resource('supplier', SupplierController::class)->middleware(['role:admin']);
+    Route::resource('barangmasuk', BarangMasukController::class)->middleware(['role:admin']);
+    Route::resource('barangkeluar', BarangKeluarController::class)->middleware(['role:admin']);
     Route::resource('pengelola', BarangController::class)->middleware(['role:admin']);
     Route::resource('pesanan', PesananController::class)->middleware(['role:admin']);
     Route::resource('transaksi', PembayaranController::class)->middleware(['role:admin']);

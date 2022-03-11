@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Nama Barang</label>
-                            <input type="text" name="nama_barang" value="{{ $barang->nama_barang }}"
+                            <input type="text" name="nama_barang" value="{{ $barang->barangmasuk->nama_barang }}"
                                 class="form-control @error('nama_barang') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">

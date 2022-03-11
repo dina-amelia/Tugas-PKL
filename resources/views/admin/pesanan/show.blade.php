@@ -45,12 +45,12 @@
                         </div>
                         <div class="form-group">
                             <label for="">Jumlah</label>
-                            <input type="text" name="jumlah" value="{{ $pesanan->jumlah }}"
+                            <input type="text" name="jumlah" value="{{ $pesanan->jumlah }} pcs"
                                 class="form-control @error('jumlah') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="">Id Barang</label>
-                            <input type="text" name="barang_id" value="{{ $pesanan->barang->nama_barang }}"
+                            <label for="">Nama Barang</label>
+                            <input type="text" name="barang_id" value="{{ $pesanan->barang->barangmasuk->nama_barang}}"
                                 class="form-control @error('barang_id') is-invalid @enderror" readonly>
                         </div>
                         <div class="form-group">

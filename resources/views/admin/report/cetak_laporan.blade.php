@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laporan Bulanan</title>
+    <style>
+        table {
+            width: 100px;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        th {
+            padding: 10px;
+            background: beige;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -29,7 +52,7 @@
                                 <th>Tanggal Pesan</th>
                                 <th>Total</th>
                                 <th>Tanggal Bayar</th>
-                                <th>Tanggal</th>
+                                <th>Tanggal Laporan</th>
                             </tr>
                         </center>
                     </thead>
@@ -45,9 +68,9 @@
                                     <td>{{ $data->alamat }}</td>
                                     <td>0{{ $data->no_telephone }}</td>
                                     <td>
-                                        <center>{{ $data->jumlah }}</center>
+                                        <center>{{ $data->jumlah }} pcs</center>
                                     </td>
-                                    <td>{{ $data->barang->nama_barang }}</td>
+                                    <td>{{ $data->barang->barangmasuk->nama_barang}}</td>
                                     <td>Rp. {{ number_format($data->barang->harga, 0, ',', '.') }}</td>
                                     <td>
                                         <center>{{ $data->tanggal_pesan }}</center>
@@ -78,7 +101,6 @@
                             <th>No</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
-                            <th>Tanggal Masuk</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,10 +113,7 @@
                                 <td>
                                     <center>{{ $data->kode_barang }}</center>
                                 </td>
-                                <td>{{ $data->nama_barang }}</td>
-                                <td>
-                                    <center>{{ $data->tanggal_masuk }}</center>
-                                </td>
+                                <td>{{ $data->barangmasuk->nama_barang }}</td>
                             </tr>
                         @endforeach
                     </tbody>

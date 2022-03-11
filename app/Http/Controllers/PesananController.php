@@ -6,6 +6,7 @@ use Alert;
 use App\Exports\PesananExport;
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
+use App\Models\BarangMasuk;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -60,7 +61,7 @@ class PesananController extends Controller
             'pemesan' => 'required',
             'alamat' => 'required',
             'no_telephone' => 'required',
-            'jumlah' => 'required|numeric|min:1|max:' . $barang->stock,
+            'jumlah' => 'required',
             'barang_id' => 'required',
             'tanggal_pesan' => 'required',
             'uang' => 'required',
@@ -92,12 +93,11 @@ class PesananController extends Controller
         $pesanan->jumlah = $request->jumlah;
         $pesanan->barang_id = $request->barang_id;
         $pesanan->tanggal_pesan = $request->tanggal_pesan;
-        $barang = Barang::findOrFail($request->barang_id = $request->barang_id);
-        $barang->stock -= $request->jumlah;
-        $barang->save();
-        $price = Barang::findOrFail($request->barang_id);
-        $pesanan->harga = $price->harga;
-        $pesanan->total = $price->harga * $request->jumlah;
+        $barangmasuk = BarangMasuk::findOrFail($request->barang_id = $request->barang_id);
+        $barangmasuk->jumlah_masuk = $barangmasuk->jumlah_masuk - $request->jumlah;
+        $barangmasuk->save();
+        $pesanan->harga = $barang->harga;
+        $pesanan->total = $barang->harga * $request->jumlah;
         $pesanan->uang = $request->uang;
         $pesanan->kembalian = $pesanan->uang - $pesanan->total;
         $pesanan->tanggal_bayar = $request->tanggal_bayar;

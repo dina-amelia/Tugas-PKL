@@ -62,8 +62,8 @@
                                             <td>{{ $data->pemesan }}</td>
                                             <td>{{ $data->alamat }}</td>
                                             <td>0{{ $data->no_telephone }}</td>
-                                            <td>{{ $data->jumlah }}</td>
-                                            <td>{{ $data->barang->nama_barang }}</td>
+                                            <td>{{ $data->jumlah }} pcs</td>
+                                            <td>{{ $data->barang->barangmasuk->nama_barang}}</td>
                                             <td>Rp. {{ number_format($data->barang->harga, 0, ',', '.') }}</td>
                                             <td>{{ $data->tanggal_pesan }}</td>
                                             <td>Rp. {{ number_format($data->total, 0, ',', '.') }}</td>
@@ -78,8 +78,10 @@
                                                             class="btn btn-outline-warning"><i
                                                                 class="fa fa-edit"></i></a>
                                                         <a href="{{ route('pesanan.show', $data->id) }}"
-                                                            class="btn btn-outline-info"><i class="fa fa-search"></i></a>
-                                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                            class="btn btn-outline-info"><i class="fa fa-eye"></i></a>
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger delete-confirm "><i
+                                                                class="fas fa-window-close"></i></button>
                                                     </p>
                                                 </form>
                                             </td>
